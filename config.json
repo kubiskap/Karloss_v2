@@ -1,0 +1,18 @@
+{
+	"msgPorts": {
+		"2001": {
+			"msgName": "CAM",
+			"asnFiles": [
+				"./asn/ITS-Container.asn",
+				"./asn/CAM_en302637_2.asn"
+			]
+		},
+		"2002": {
+			"msgName": "DENM",
+			"asnFiles": [
+				"./asn/ITS-Container.asn",
+				"./asn/DENM_en302637_3.asn"
+			]
+		}
+	}
+}
