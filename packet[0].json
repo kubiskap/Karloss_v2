@@ -1,0 +1,62 @@
+{
+    "CAM": {
+        "header": {
+            "protocolVersion": 2,
+            "messageID": 2,
+            "stationID": 363622469
+        },
+        "cam": {
+            "generationDeltaTime": 61028,
+            "camParameters": {
+                "basicContainer": {
+                    "stationType": 5,
+                    "referencePosition": {
+                        "latitude": 500833125,
+                        "longitude": 144165966,
+                        "positionConfidenceEllipse": {
+                            "semiMajorConfidence": 4095,
+                            "semiMinorConfidence": 4095,
+                            "semiMajorOrientation": 3601
+                        },
+                        "altitude": {
+                            "altitudeValue": 0,
+                            "altitudeConfidence": "alt-000-01"
+                        }
+                    }
+                },
+                "highFrequencyContainer": [
+                    "basicVehicleContainerHighFrequency",
+                    {
+                        "heading": {
+                            "headingValue": 1722,
+                            "headingConfidence": 127
+                        },
+                        "speed": {
+                            "speedValue": 15,
+                            "speedConfidence": 127
+                        },
+                        "driveDirection": "unavailable",
+                        "vehicleLength": {
+                            "vehicleLengthValue": 1023,
+                            "vehicleLengthConfidenceIndication": "unavailable"
+                        },
+                        "vehicleWidth": 62,
+                        "longitudinalAcceleration": {
+                            "longitudinalAccelerationValue": 161,
+                            "longitudinalAccelerationConfidence": 102
+                        },
+                        "curvature": {
+                            "curvatureValue": 1023,
+                            "curvatureConfidence": "unavailable"
+                        },
+                        "curvatureCalculationMode": "unavailable",
+                        "yawRate": {
+                            "yawRateValue": 32767,
+                            "yawRateConfidence": "unavailable"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
