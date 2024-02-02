@@ -3324,5 +3324,101 @@
                 16
             ]
         ]
+    },
+    "protocolVersion": {
+        "type": "INTEGER",
+        "restricted-to": [
+            [
+                0,
+                255
+            ]
+        ],
+        "name": "protocolVersion",
+        "tag": {
+            "number": 0,
+            "kind": "IMPLICIT"
+        }
+    },
+    "messageID": {
+        "type": "INTEGER",
+        "named-numbers": {
+            "denm": 1,
+            "cam": 2,
+            "poi": 3,
+            "spatem": 4,
+            "mapem": 5,
+            "ivim": 6,
+            "ev-rsr": 7,
+            "tistpgtransaction": 8,
+            "srem": 9,
+            "ssem": 10,
+            "evcsn": 11,
+            "saem": 12,
+            "rtcmem": 13
+        },
+        "restricted-to": [
+            [
+                0,
+                255
+            ]
+        ],
+        "name": "messageID",
+        "tag": {
+            "number": 1,
+            "kind": "IMPLICIT"
+        }
+    },
+    "unNumber": {
+        "type": "INTEGER",
+        "restricted-to": [
+            [
+                0,
+                9999
+            ]
+        ],
+        "name": "unNumber",
+        "tag": {
+            "number": 1,
+            "kind": "IMPLICIT"
+        }
+    },
+    "elevatedTemperature": {
+        "type": "BOOLEAN",
+        "name": "elevatedTemperature",
+        "tag": {
+            "number": 2,
+            "kind": "IMPLICIT"
+        }
+    },
+    "tunnelsRestricted": {
+        "type": "BOOLEAN",
+        "name": "tunnelsRestricted",
+        "tag": {
+            "number": 3,
+            "kind": "IMPLICIT"
+        }
+    },
+    "limitedQuantity": {
+        "type": "BOOLEAN",
+        "name": "limitedQuantity",
+        "tag": {
+            "number": 4,
+            "kind": "IMPLICIT"
+        }
+    },
+    "emergencyActionCode": {
+        "type": "IA5String",
+        "size": [
+            [
+                1,
+                24
+            ]
+        ],
+        "name": "emergencyActionCode",
+        "optional": true,
+        "tag": {
+            "number": 5,
+            "kind": "IMPLICIT"
+        }
     }
 }
