@@ -6,7 +6,6 @@ from pktImport import Analysis
 
 
 def main():
-    analyse = Analysis('./test.pcap', './config.json')
-    packets = analyse.fetch_pkts()
+    pass
 if __name__ == '__main__':
     main()

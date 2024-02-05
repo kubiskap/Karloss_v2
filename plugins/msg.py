@@ -1,6 +1,7 @@
 import traceback
 import asn1tools
 import json
+from collections import ChainMap
 
 
 class ItsMessage(object):
@@ -25,4 +26,12 @@ class ItsMessage(object):
         return self.its_dictionary
 
     def decode(self, encoded):  # dekodovani zpravy
-        return {self.msg_type: self.its_msg.decode(self.msg_type, encoded, check_constraints=self.check_constraints)}
+        try:
+            decoded = self.its_msg.decode(self.msg_type, encoded, check_constraints=self.check_constraints)
+        except asn1tools.DecodeError as error:
+            print(error)
+            decoded = {}
+        except asn1tools.ConstraintsError as error:
+            print(error)
+            decoded = {}
+        return {self.msg_type: decoded}

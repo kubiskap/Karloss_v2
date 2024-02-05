@@ -1,51 +1,53 @@
-import asn1tools
 import pyshark
-import json
-from plugins.msg import ItsMessage
+from plugins.msg import *
 
 
-def get_msg_types(config_location, get_port_numbers, check_constraints):
-    with open(config_location, 'r') as f:
-        config = json.loads(f.read())
-    # Establish "ItsMessage" object for each msg_type in config
-    msgTypes = {}
-    for i in config['msgPorts']:
-        if get_port_numbers:
-            msgTypes[i] = ItsMessage(msg_type=config['msgPorts'][i]['msgName'],
-                                     asn_file=config['msgPorts'][i]['asnFiles'],
-                                     check_constraints=check_constraints)
+class Packets(object):
+    def __init__(self,
+                 input_file,
+                 config_location='./config.json'):
+        self.input_file = input_file
+        self.pcap = pyshark.FileCapture(self.input_file, include_raw=True, use_json=True)
+        self.config_location = config_location
+        with open(self.config_location, 'r') as f:
+            self.config = json.loads(f.read())
+
+    def get_msg_types(self):  # Establish ItsMessage object for every type of msg in config
+        msgTypes = {}
+        for i in self.config['msgPorts']:
+            msgTypes[i] = [ItsMessage(msg_type=self.config['msgPorts'][i]['msgName'],
+                                      asn_file=self.config['msgPorts'][i]['asnFiles']),
+                           self.config['msgPorts'][i]['msgName']]
+        return msgTypes
+
+    def get_packet_array(self):  # Method to decode all packets in "input_file" and stack them into a list
+        pkts = []
+        msgTypes = self.get_msg_types()
+        for idx, pkt in enumerate(self.pcap):
+            if 'MALFORMED' in str(pkt.layers):
+                pkts.append(f'Packet no. {idx + 1}: malformed packet')
+            elif 'ITS' in str(pkt.layers):
+                try:
+                    msgFunc = msgTypes.get(pkt.btpb.dstport)[0]
+                    msgName = msgTypes.get(pkt.btpb.dstport)[1]
+                    pkt_decoded = msgFunc.decode(bytes.fromhex(pkt.its_raw.value))
+                    if len(pkt_decoded) != 0:
+                        pkts.append(pkt_decoded)
+                    else:
+                        pkts.append(f'Packet no. {idx + 1}: {msgName} decode/constraint error')
+                except KeyError:
+                    pkts.append(f'Packet no. {idx + 1}: unsupported message type')
+        return pkts
+
+
+def recursive_parameters(packet, path=[]):  # Method to
+    for key, value in packet.items():
+        if type(value) is dict:
+            yield from recursive_parameters(value, path + [key])
+        if type(value) is tuple:
+            yield (path + [key], key, value)
+        if type(value) is tuple and type(value[0]) is str and type(value[1]) is dict:
+            yield from recursive_parameters(value[1], path + [key])
         else:
-            msgTypes[config['msgPorts'][i]['msgName']] = ItsMessage(msg_type=config['msgPorts'][i]['msgName'],
-                                                                    asn_file=config['msgPorts'][i]['asnFiles'],
-                                                                    check_constraints=check_constraints)
-    return msgTypes
+            yield (path + [key], key, value)
 
-
-def get_packet_array(input_file,
-                     config_file):  # Method to decode all packets in "input_file" and stack them into a list
-    cap = pyshark.FileCapture(input_file, include_raw=True, use_json=True)
-    pkts = []
-    pktErrs = []
-    noErr = []
-    msgPorts = get_msg_types(config_location=config_file, get_port_numbers=True, check_constraints=True)
-    msgNames = get_msg_types(config_location=config_file, get_port_numbers=False, check_constraints=True)
-    iteration = -1
-    for pkt in cap:
-        iteration += 1
-        func = msgPorts.get(pkt.btpb.dstport)
-        decErr = {}
-        conErr = {}
-        try:
-            pkt_decoded = func.decode(bytes.fromhex(pkt.its_raw.value))
-            pkts.append(pkt_decoded)
-        except asn1tools.DecodeError as de:
-            decErr[str(de).split(': ')[0]] = str(de).split(': ')[1]
-        except asn1tools.ConstraintsError as ce:
-            conErr[str(ce).split(': ')[0]] = str(ce).split(': ')[1]
-        finally:
-            if not len(pkts) != iteration:
-                pkts.append('Packet which was not decoded due to error')
-            else:
-                noErr.append(iteration)
-            pktErrs.append([decErr, conErr])
-    return pkts, pktErrs, noErr

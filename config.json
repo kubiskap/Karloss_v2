@@ -3,15 +3,15 @@
 		"2001": {
 			"msgName": "CAM",
 			"asnFiles": [
-				"./asn/ITS-Container.asn",
-				"./asn/CAM_en302637_2.asn"
+				"./asn/en/v1/ITSv1-Container.asn",
+				"./asn/en/v1/CAMv1-PDU-Descriptions.asn"
 			]
 		},
 		"2002": {
 			"msgName": "DENM",
 			"asnFiles": [
-				"./asn/ITS-Container.asn",
-				"./asn/DENM_en302637_3.asn"
+				"./asn/en/v1/ITSv1-Container.asn",
+				"./asn/en/v1/DENMv1-PDU-Descriptions.asn"
 			]
 		}
 	}
