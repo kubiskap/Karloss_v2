@@ -1,5 +1,7 @@
 import pyshark
 from plugins.msg import *
+import dpath
+import copy
 
 
 class Packets(object):
@@ -36,18 +38,24 @@ class Packets(object):
                     else:
                         pkts.append(f'Packet no. {idx + 1}: {msgName} decode/constraint error')
                 except KeyError:
-                    pkts.append(f'Packet no. {idx + 1}: unsupported message type')
+                    pkts.append(f'Packet no. {idx + 1}: unsupported message type with dstport {pkt.btpb.dstport}.')
         return pkts
 
 
-def recursive_parameters(packet, path=[]):  # Method to
-    for key, value in packet.items():
-        if type(value) is dict:
-            yield from recursive_parameters(value, path + [key])
-        if type(value) is tuple:
-            yield (path + [key], key, value)
-        if type(value) is tuple and type(value[0]) is str and type(value[1]) is dict:
-            yield from recursive_parameters(value[1], path + [key])
+def deal_with_choice_type(input_dict):  # Convert CHOICE, which returns (str, object), to {str: object}
+    output_dict = {}
+    for key, value in input_dict.items():
+        if isinstance(value, tuple) and len(value) == 2 and isinstance(value[0], str) and isinstance(value[1], dict):
+            output_dict[key] = {value[0]: deal_with_choice_type(value[1])}
+        elif isinstance(value, dict):
+            output_dict[key] = deal_with_choice_type(value)
         else:
-            yield (path + [key], key, value)
+            output_dict[key] = value
+    return output_dict
 
+
+def recursive_parameters(packet, path=[]): # Generator function used to iterate through every parameter of the packet
+    for key, value in packet.items():
+        if isinstance(value, dict):
+            yield from recursive_parameters(value, path + [key])
+        yield (path + [key], key, value)

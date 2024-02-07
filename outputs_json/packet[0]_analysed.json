@@ -1,0 +1,328 @@
+{
+    "CAM": [
+        {
+            "header": [
+                {
+                    "protocolVersion": [
+                        2,
+                        "OK",
+                        null
+                    ],
+                    "messageID": [
+                        [
+                            2,
+                            "cam"
+                        ],
+                        "OK",
+                        null
+                    ],
+                    "stationID": [
+                        363622469,
+                        "OK",
+                        null
+                    ]
+                },
+                "OK",
+                null
+            ],
+            "cam": [
+                {
+                    "generationDeltaTime": [
+                        61028,
+                        "Warning",
+                        [
+                            "Value not in named-numbers."
+                        ]
+                    ],
+                    "camParameters": [
+                        {
+                            "basicContainer": [
+                                {
+                                    "stationType": [
+                                        [
+                                            5,
+                                            "passengerCar"
+                                        ],
+                                        "OK",
+                                        null
+                                    ],
+                                    "referencePosition": [
+                                        {
+                                            "latitude": [
+                                                500833125,
+                                                "Warning",
+                                                [
+                                                    "Value not in named-numbers."
+                                                ]
+                                            ],
+                                            "longitude": [
+                                                144165966,
+                                                "Warning",
+                                                [
+                                                    "Value not in named-numbers."
+                                                ]
+                                            ],
+                                            "positionConfidenceEllipse": [
+                                                {
+                                                    "semiMajorConfidence": [
+                                                        [
+                                                            4095,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ],
+                                                    "semiMinorConfidence": [
+                                                        [
+                                                            4095,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ],
+                                                    "semiMajorOrientation": [
+                                                        [
+                                                            3601,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "altitude": [
+                                                {
+                                                    "altitudeValue": [
+                                                        [
+                                                            0,
+                                                            "referenceEllipsoidSurface"
+                                                        ],
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "altitudeConfidence": [
+                                                        "alt-000-01",
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "OK",
+                                        null
+                                    ]
+                                },
+                                "OK",
+                                null
+                            ],
+                            "highFrequencyContainer": [
+                                {
+                                    "basicVehicleContainerHighFrequency": [
+                                        {
+                                            "heading": [
+                                                {
+                                                    "headingValue": [
+                                                        1722,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "headingConfidence": [
+                                                        [
+                                                            127,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "speed": [
+                                                {
+                                                    "speedValue": [
+                                                        15,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "speedConfidence": [
+                                                        [
+                                                            127,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "driveDirection": [
+                                                "unavailable",
+                                                "Error",
+                                                [
+                                                    "Value is unavailable."
+                                                ]
+                                            ],
+                                            "vehicleLength": [
+                                                {
+                                                    "vehicleLengthValue": [
+                                                        [
+                                                            1023,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ],
+                                                    "vehicleLengthConfidenceIndication": [
+                                                        "unavailable",
+                                                        "Error",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "vehicleWidth": [
+                                                [
+                                                    62,
+                                                    "unavailable"
+                                                ],
+                                                "Warning",
+                                                [
+                                                    "Value is unavailable."
+                                                ]
+                                            ],
+                                            "longitudinalAcceleration": [
+                                                {
+                                                    "longitudinalAccelerationValue": [
+                                                        [
+                                                            161,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ],
+                                                    "longitudinalAccelerationConfidence": [
+                                                        [
+                                                            102,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "curvature": [
+                                                {
+                                                    "curvatureValue": [
+                                                        [
+                                                            1023,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ],
+                                                    "curvatureConfidence": [
+                                                        "unavailable",
+                                                        "Error",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "curvatureCalculationMode": [
+                                                "unavailable",
+                                                "Error",
+                                                [
+                                                    "Value is unavailable."
+                                                ]
+                                            ],
+                                            "yawRate": [
+                                                {
+                                                    "yawRateValue": [
+                                                        [
+                                                            32767,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ],
+                                                    "yawRateConfidence": [
+                                                        "unavailable",
+                                                        "Error",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "Warning",
+                                        [
+                                            "Optional parameter accelerationControl missing.",
+                                            "Optional parameter lanePosition missing.",
+                                            "Optional parameter steeringWheelAngle missing.",
+                                            "Optional parameter lateralAcceleration missing.",
+                                            "Optional parameter verticalAcceleration missing.",
+                                            "Optional parameter performanceClass missing.",
+                                            "Optional parameter cenDsrcTollingZone missing."
+                                        ]
+                                    ]
+                                },
+                                "OK",
+                                null
+                            ]
+                        },
+                        "Warning",
+                        [
+                            "Optional parameter lowFrequencyContainer missing.",
+                            "Optional parameter specialVehicleContainer missing."
+                        ]
+                    ]
+                },
+                "OK",
+                null
+            ]
+        },
+        "OK",
+        null
+    ]
+}
