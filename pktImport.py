@@ -2,7 +2,7 @@ import pyshark
 from plugins.msg import *
 import dpath
 import copy
-
+import collections
 
 class Packets(object):
     def __init__(self,
@@ -42,13 +42,35 @@ class Packets(object):
         return pkts
 
 
-def deal_with_choice_type(input_dict):  # Convert CHOICE, which returns (str, object), to {str: object}
+def process_list(input_list):
+    output_dict = {}
+    for index, item in enumerate(input_list):
+        if isinstance(item, list):
+            output_dict[f'listItem{index}'] = process_list(item)
+        elif isinstance(item, dict):
+            output_dict[f'listItem{index}'] = process_packet(item)
+        else:
+            output_dict[f'listItem{index}'] = item
+    return output_dict
+
+
+def process_packet(input_dict):
     output_dict = {}
     for key, value in input_dict.items():
-        if isinstance(value, tuple) and len(value) == 2 and isinstance(value[0], str) and isinstance(value[1], dict):
-            output_dict[key] = {value[0]: deal_with_choice_type(value[1])}
+        # Convert CHOICE, which returns (str, object), to {str: object}
+        if isinstance(value, tuple) and len(value) == 2 and isinstance(value[0], str):
+            output_dict[key] = {value[0]: process_packet(value[1])}
+        # Convert BIT STRING, which returns (bytes, int) to bits
+        elif isinstance(value, tuple) and len(value) ==2 and isinstance(value[0], bytes) and isinstance(value[1], int):
+            integer_value = int.from_bytes(value[0], byteorder='big')
+            binary = bin(integer_value)[2:].zfill(value[1])
+            output_dict[key] = binary
+        # Convert nested lists into dictionary
+        elif isinstance(value, list):
+            output_dict[key] = process_list(value)
+        # If value is dict, go one level deeper
         elif isinstance(value, dict):
-            output_dict[key] = deal_with_choice_type(value)
+            output_dict[key] = process_packet(value)
         else:
             output_dict[key] = value
     return output_dict
@@ -58,4 +80,7 @@ def recursive_parameters(packet, path=[]): # Generator function used to iterate 
     for key, value in packet.items():
         if isinstance(value, dict):
             yield from recursive_parameters(value, path + [key])
+        elif isinstance(value, list):
+            for index, item in enumerate(value):
+                yield from recursive_parameters(item, path + [key] + [index])
         yield (path + [key], key, value)

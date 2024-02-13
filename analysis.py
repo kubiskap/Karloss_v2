@@ -1,10 +1,9 @@
 from pktImport import Packets
 from pktImport import recursive_parameters
-from pktImport import deal_with_choice_type
+from pktImport import process_packet
 from collections import ChainMap
 import dpath
 import datetime
-import copy
 
 
 def summary_add_value(val_dict, parameter, value_type):
@@ -48,38 +47,51 @@ def get_dictionary_all_parameters(asn_dict):
     return asn_dict_types, type_names_dict
 
 
-time_start = datetime.datetime.now()
-summary = {}
-pktsAnalysed = []
-
-pktClass = Packets(input_file='./pcap/test4.pcap')
-packets = pktClass.get_packet_array()
-
-msgDicts = {}
-for msgType in pktClass.get_msg_types().values():
-    msgDicts[msgType[1]] = msgType[0].get_dictionary()
-
-for pkt in packets:
-    if not isinstance(pkt, dict):
-        pktsAnalysed.append(pkt)
+def get_item_type_path(parameter_path, types_dictionary, type_names_dictionary):
+    if any('listItem' in path_keys for path_keys in parameter_path):
+        path_item_type_names = parameter_path.copy()
+        for index, path_item in enumerate(parameter_path):
+            if path_item[0:8] == 'listItem' and path_item_type_names[index-1][0:4] != 'listItem':
+                if path_item_type_names[index-1] in types_dictionary.keys():
+                    path_item_type_names[index] = types_dictionary.get(path_item_type_names[index-1])['element']['type']
+                else:
+                    path_item_type_names[index] = types_dictionary.get(type_names_dictionary.get(path_item_type_names[index-1]))['element']['type']
+        return path_item_type_names
     else:
-        paramsAnalysed = {}
-        pktAnalysed = deal_with_choice_type(pkt)
-        msgName = list(pkt.keys())[0].upper()
-        pktDict = msgDicts.get(msgName)
-        types, typeNames = get_dictionary_all_parameters(pktDict)
-        for path, key, value in recursive_parameters(pktAnalysed):
+        return parameter_path
+
+
+def get_asn_value_for_parameter(parameter_name, parameter_path, types_dictionary, type_names_dictionary):
+    path_item = get_item_type_path(parameter_path, types_dictionary, type_names_dictionary)
+    if parameter_name in types_dictionary.keys():
+        asn = types_dictionary.get(parameter_name)
+    elif parameter_name[0:8] == 'listItem':
+            asn = types_dictionary.get(path_item[-1])
+    else:
+#        for type_names_key, type_names_value in type_names_dictionary:
+#            if type_names_value == parameter_name:
+        asn = types_dictionary.get(type_names_dictionary.get(parameter_name))
+    return asn, path_item
+
+
+def analyse_packet(pkt, summary, msg_dicts):
+    if not isinstance(pkt, dict):
+        return pkt
+    else:
+        packet_analysed = process_packet(pkt)
+        msg_name = list(pkt.keys())[0].upper()
+        packet_dict = msg_dicts.get(msg_name)
+        types, type_names = get_dictionary_all_parameters(packet_dict)
+        for path, key, value in recursive_parameters(packet_analysed):
             problems = []
-            if key in types.keys():
-                asn = types.get(key)
-            else:
-                asn = types.get(typeNames.get(key))
+            asn, path_item_types = get_asn_value_for_parameter(key, path, types, type_names)
             # Generic errors and warnings (based on value type)
             if asn['type'] == 'INTEGER':
                 if 'restricted-to' in asn.keys():
                     inRange = []
                     for restriction in asn['restricted-to']:
-                        inRange.append(value in range(restriction[0], restriction[1] + 1))
+                        if restriction is not None:
+                            inRange.append(value in range(restriction[0], restriction[1] + 1))
                     if not all(inRange):
                         problems.append(Problem(1, 'Out of range.'))
                 if 'named-numbers' in asn.keys():
@@ -117,11 +129,14 @@ for pkt in packets:
                         problems.append(Problem(1, 'Out of specified size.'))
             if asn['type'] == 'BIT STRING':
                 if 'size' in asn.keys():
-                    if value[1] != asn['size'][0]:
+                    if len(value) != asn['size'][0]:
                         problems.append(Problem(1, 'Out of specified size.'))
                 if 'named-bits' in asn.keys():
-                    for named_bit in asn['named-bits']:
-                        pass
+                    bits_activated = []
+                    for index, bit in enumerate(list(value)):
+                        if bit == '1':
+                            bits_activated.append(asn['named-bits'][index][0])
+                    value = [value, bits_activated]
             if asn['type'] == 'BOOLEAN':
                 if not isinstance(value, bool):
                     problems.append(Problem(1, 'Not specified type.'))
@@ -145,22 +160,46 @@ for pkt in packets:
                             problems.append(Problem(1, f'Mandatory parameter {seqMember['name']} missing.'))
                         if seqMember is not None and seqMember['name'] not in value.keys():
                             problems.append(Problem(0, f'Optional parameter {seqMember['name']} missing.'))
+            if asn['type'] == 'SEQUENCE OF':
+                if 'size' in asn.keys():
+                    sizeAllowed = []
+                    for size in asn['size']:
+                        if not None:
+                            sizeAllowed.append(len(value.keys()) in range(size[0], size[1] + 1))
+                        else:
+                            sizeAllowed.append(value is None)
+                    if not all(sizeAllowed):
+                        problems.append(Problem(1, 'Out of specified size.'))
+
             # Message type-specific errors and warnings
 
             # .... TBD ....
 
-            problemFlags, problemDescs = [], []
+            problem_flags, problem_descs = [], []
             for problem in problems:
-                problemFlags.append(problem.flag)
-                problemDescs.append(problem.desc)
-            if 1 in problemFlags:
+                problem_flags.append(problem.flag)
+                problem_descs.append(problem.desc)
+            if 1 in problem_flags:
                 state = 'Error'
-            elif 0 in problemFlags:
+            elif 0 in problem_flags:
                 state = 'Warning'
             else:
                 state = 'OK'
-            summary_add_value(summary, '/'.join(path), state)
-            dpath.set(pktAnalysed, path, [value, state, None if not problemDescs else problemDescs])
-        pktsAnalysed.append(pktAnalysed)
+            summary_add_value(summary, '/'.join(list(map(str, path_item_types))), state)
+            dpath.set(packet_analysed, path, [value, state, None if not problem_flags else problem_descs])
+        return packet_analysed, summary
 
-time_end = datetime.datetime.now()
+
+
+
+summary = {}
+pktsAnalysed = []
+
+pktClass = Packets(input_file='./pcap/test.pcap')
+packets = pktClass.get_packet_array()
+
+msgDicts = {}
+for msgType in pktClass.get_msg_types().values():
+    msgDicts[msgType[1]] = msgType[0].get_dictionary()
+
+pktAnalysed, summary = analyse_packet(packets[7], summary, msgDicts)
