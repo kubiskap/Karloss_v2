@@ -13,5 +13,5 @@ setup(
    author_email='foomail@foo.example',
    url="http://www.foopackage.example/",
    packages=['Karloss'],  #same as name
-   install_requires=['pyshark', 'asn1tools'], #external packages as dependencies
+   install_requires=['pyshark', 'asn1tools','dpath'], #external packages as dependencies
 )

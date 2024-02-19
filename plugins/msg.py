@@ -1,13 +1,9 @@
-import traceback
 import asn1tools
-import json
-from collections import ChainMap
-
 
 class ItsMessage(object):
     """
-	ETSI ITS message
-	"""
+    ETSI ITS message
+    """
 
     def __init__(
             self,

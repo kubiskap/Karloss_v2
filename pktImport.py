@@ -1,8 +1,6 @@
 import pyshark
 from plugins.msg import *
-import dpath
-import copy
-import collections
+import json
 
 class Packets(object):
     def __init__(self,
