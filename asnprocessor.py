@@ -37,13 +37,13 @@ class AsnDictProcessor(object):
             if value is None:
                 break
             elif value['type'] in self.types:
-                members_dict[value['name']] = self.process_type(value, path + [value['name']])
+                members_dict[value['name']] = self.process_type(value, path + [value['name']]) | {key: value for key, value in value.items() if key not in ['type']}
             elif value['type'].split('.')[0] in self.object_classes:
                 members_dict[value['name']] = self.process_object_class(value, path + [value['name']])
             elif value['type'] in ['SEQUENCE', 'CHOICE']:
-                members_dict[value['name']] = self.process_members(value, path + [value['name']])
+                members_dict[value['name']] = self.process_members(value, path + [value['name']]) | {key: value for key, value in value.items() if key not in ['type']}
             elif value['type'] == 'SEQUENCE OF':
-                members_dict[value['name']] = self.process_sequence_of(value, path)
+                members_dict[value['name']] = self.process_sequence_of(value, path) | {key: value for key, value in value.items() if key not in ['type', 'element']}
             else:
                 members_dict[value['name']] = value
         return members_dict
@@ -55,7 +55,7 @@ class AsnDictProcessor(object):
                 return list(self.rebuild_asn(object_class_member['type'], path).values())[0]
 
     def process_type(self, value, path):
-        return list(self.rebuild_asn(value['type'], path).values())[0] | value
+        return list(self.rebuild_asn(value['type'], path).values())[0]
 
     def process_sequence_of(self, value, path):
         try:
@@ -66,14 +66,14 @@ class AsnDictProcessor(object):
         return value
 
     def convert_item_path(self, parameter_path):
-        if any('listItem' in path_keys for path_keys in parameter_path):
+        path_converted = parameter_path.copy()
+        if any('listItem' in path_keys for path_keys in path_converted):
             asn_path = []
-            for index, path_item in enumerate(parameter_path):
-                if path_item.startswith('listItem') and not parameter_path[index - 1].startswith('listItem'):
+            for index, path_item in enumerate(path_converted):
+                if path_item.startswith('listItem') and not path_converted[index - 1].startswith('listItem'):
                     asn_path.append('element')
-                    parameter_path[index] = list(dpath.get(self.rebuilt_asn, asn_path).keys())[0]
-                asn_path.append(parameter_path[index])
+                    path_converted[index] = list(dpath.get(self.rebuilt_asn, asn_path).keys())[0]
+                asn_path.append(path_converted[index])
         else:
-            asn_path = parameter_path.copy()
+            asn_path = path_converted.copy()
         return parameter_path, asn_path
-

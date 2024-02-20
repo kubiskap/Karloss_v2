@@ -5,7 +5,7 @@ import dpath
 from asnprocessor import AsnDictProcessor
 import asn1tools
 
-#
+
 def summary_add_value(val_dict, parameter, value_type):
     """
     Function which adds value to a summary dictionary, depending on the parameter.
@@ -43,13 +43,14 @@ class Problem(object):
         self.desc = desc
 
 
-def analyse_packet(pkt, summary_dict, asn_dict):
+def analyse_packet(pkt, summary_dict, msg_dict):
     if not isinstance(pkt, dict):
         return pkt
     else:
         packet_analysed = process_packet(pkt)
         msg_name = list(pkt.keys())[0].upper()
-        asn1_processor = AsnDictProcessor(asn_dict, msg_name)
+        compiled_dict = msg_dict.get(msg_name).its_dictionary
+        asn1_processor = AsnDictProcessor(compiled_dict, msg_name)
         asn_dictionary = asn1_processor.rebuilt_asn
         for path, key, value in recursive_parameters(packet_analysed):
             problems = []
@@ -151,7 +152,7 @@ def analyse_packet(pkt, summary_dict, asn_dict):
                 state = 'Warning'
             else:
                 state = 'OK'
-            summary_add_value(summary_dict, '/'.join(list(map(str, path_converted))), state)
+            summary_add_value(summary_dict, '/'.join(list(path_converted)), state)
             dpath.set(packet_analysed, path, [value, state, None if not problem_flags else problem_descs])
         return packet_analysed, summary_dict
 
@@ -162,23 +163,6 @@ pktsAnalysed = []
 pktClass = Packets(input_file='./pcap/test4.pcap')
 packets = pktClass.get_packet_array()
 
-msgDicts = {}
-for msgType in pktClass.get_msg_types().values():
-    msgDicts[msgType[1]] = msgType[0].get_dictionary()
+msg_dicts = pktClass.get_its_msg_object_dict(msg_name_key=True)
 
-its_dictionary = asn1tools.parse_files([
-    "./asn/en/ITS-Container.asn",
-    "./asn/iso/ISO14823-missing.asn",
-    "./asn/iso/ISO_17419.1.asn",
-    "./asn/iso/ISO_14823-1 ed1_AnnexE.asn",
-    "./asn/iso/ISO17573-3(2021)EfcDataDictionary.asn",
-    "./asn/iso/ISO_TS_14816.asn",
-    "./asn/iso/ISO14906(2018)EfcDsrcApplicationv6-patched.asn",
-    "./asn/iso/ISO14906(2018)EfcDsrcGenericv7-patched.asn",
-    "./asn/iso/ISO19321IVIv2.asn",
-    "./asn/iso/ISO24534-3_ElectronicRegistrationIdentificationVehicleDataModule-patched.asn",
-    "./asn/iso/ISO-TS-19091-addgrp-C-2018.asn",
-    "./asn/ts/SPATEM-PDU-Descriptions.asn"
-])
-
-pktAnalysed, summary = analyse_packet(packets[7], summary, its_dictionary)
+pktAnalysed, summary = analyse_packet(packets[7], summary, msg_dicts)

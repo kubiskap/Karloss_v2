@@ -4,7 +4,6 @@ class ItsMessage(object):
     """
     ETSI ITS message
     """
-
     def __init__(
             self,
             asn_file,
@@ -18,10 +17,7 @@ class ItsMessage(object):
         self.its_msg = asn1tools.compile_dict(self.its_dictionary, encoding_type)
         self.msg_type = msg_type
 
-    def get_dictionary(self):  # vrati python slovnik, ktery vezme z asn souboru
-        return self.its_dictionary
-
-    def decode(self, encoded):  # dekodovani zpravy
+    def decode(self, encoded):  # dekodovani paketu
         try:
             decoded = self.its_msg.decode(self.msg_type, encoded, check_constraints=self.check_constraints)
         except asn1tools.DecodeError as error:

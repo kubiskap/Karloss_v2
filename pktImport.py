@@ -1,6 +1,7 @@
 import pyshark
-from plugins.msg import *
+from plugins.msg import ItsMessage
 import json
+
 
 class Packets(object):
     def __init__(self,
@@ -12,32 +13,30 @@ class Packets(object):
         with open(self.config_location, 'r') as f:
             self.config = json.loads(f.read())
 
-    def get_msg_types(self):  # Establish ItsMessage object for every type of msg in config
-        msgTypes = {}
-        for i in self.config['msgPorts']:
-            msgTypes[i] = [ItsMessage(msg_type=self.config['msgPorts'][i]['msgName'],
-                                      asn_file=self.config['msgPorts'][i]['asnFiles']),
-                           self.config['msgPorts'][i]['msgName']]
-        return msgTypes
+    def get_its_msg_object_dict(self, msg_name_key=False):  # Establish ItsMessage object for every type of msg in config
+        msg_types = {}
+        for msg_port, config_value in self.config['msgPorts'].items():
+            dict_key = config_value['msgName'] if msg_name_key else msg_port
+            msg_types[dict_key] = ItsMessage(asn_file=config_value['asnFiles'], msg_type=config_value['msgName'])
+        return msg_types
 
     def get_packet_array(self):  # Method to decode all packets in "input_file" and stack them into a list
-        pkts = []
-        msgTypes = self.get_msg_types()
+        packet_array = []
+        msg_types = self.get_its_msg_object_dict()
         for idx, pkt in enumerate(self.pcap):
             if 'MALFORMED' in str(pkt.layers):
-                pkts.append(f'Packet no. {idx + 1}: malformed packet')
+                packet_array.append(f'Packet no. {idx + 1}: malformed packet')
             elif 'ITS' in str(pkt.layers):
                 try:
-                    msgFunc = msgTypes.get(pkt.btpb.dstport)[0]
-                    msgName = msgTypes.get(pkt.btpb.dstport)[1]
-                    pkt_decoded = msgFunc.decode(bytes.fromhex(pkt.its_raw.value))
+                    msg_object = msg_types.get(pkt.btpb.dstport)
+                    pkt_decoded = msg_object.decode(bytes.fromhex(pkt.its_raw.value))
                     if len(pkt_decoded) != 0:
-                        pkts.append(pkt_decoded)
+                        packet_array.append(pkt_decoded)
                     else:
-                        pkts.append(f'Packet no. {idx + 1}: {msgName} decode/constraint error')
+                        packet_array.append(f'Packet no. {idx + 1}: decode/constraint error')
                 except KeyError:
-                    pkts.append(f'Packet no. {idx + 1}: unsupported message type with dstport {pkt.btpb.dstport}.')
-        return pkts
+                    packet_array.append(f'Packet no. {idx + 1}: unsupported message type with dstport {pkt.btpb.dstport}.')
+        return packet_array
 
 
 def process_list(input_list):
@@ -74,7 +73,9 @@ def process_packet(input_dict):
     return output_dict
 
 
-def recursive_parameters(packet, path=[]): # Generator function used to iterate through every parameter of the packet
+def recursive_parameters(packet, path=None): # Generator used to iterate through every parameter of the packet
+    if path is None:
+        path = []
     for key, value in packet.items():
         if isinstance(value, dict):
             yield from recursive_parameters(value, path + [key])
