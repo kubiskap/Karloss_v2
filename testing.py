@@ -1,35 +1,22 @@
 # Karloss_v2 main
 
 # Imports
-from pktImport import Packets
-from analysis import analyse_packet
-import datetime
-from multiprocessing import Pool
-import psutil
-from functools import partial
+import asn1tools
+import json
 
-def process_packet(packet, msgDicts, summary):
-    pkt_analysed, summary = analyse_packet(packet, summary, msgDicts)
-    return pkt_analysed, summary
+its_dictionary_dir = asn1tools.parse_files([
+    "./asn/vanetza/TS102894-2v131-CDD.asn",
+    "./asn/vanetza/EN302637-2v141-CAM.asn",
+    "./asn/vanetza/ISO14816.asn",
+    "./asn/vanetza/ISO19091.asn",
+    "./asn/vanetza/ISO24534-3.asn",
+    "./asn/vanetza/TR103562v211-CPM.asn",
+    "./asn/vanetza/TS103301v211-MAPEM.asn"])
 
-if __name__ == "__main__":
-    num_cpus = psutil.cpu_count(logical=False)
-    pool = Pool(num_cpus)
+with open('its_map_before.json', 'w') as json_file:
+    json.dump(its_dictionary_dir, json_file, indent=2)
 
-    time_start = datetime.datetime.now()
+its_msg = asn1tools.compile_dict(its_dictionary_dir, 'uper')
 
-    pktClass = Packets(input_file='./pcap/test4.pcap')
-    packets = pktClass.get_packet_array()
-
-    msgDicts = {}
-    for msgType in pktClass.get_msg_types().values():
-        msgDicts[msgType[1]] = msgType[0].get_dictionary()
-
-    summary = {}  # Initialize summary here
-    partial_process_packet = partial(process_packet, msgDicts=msgDicts, summary=summary)
-    results = pool.map(partial_process_packet, packets)
-    pktsAnalysed, summary = zip(*results)
-
-    time_end = datetime.datetime.now()
-
-    print(f'Duration: {(time_end - time_start).total_seconds() / 60} min; Packets analysed: {len(packets)}')
+with open('its_map_after.json', 'w') as json_file:
+    json.dump(its_dictionary_dir, json_file, indent=2)

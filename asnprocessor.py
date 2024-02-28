@@ -4,8 +4,8 @@ import copy
 
 
 class AsnDictProcessor(object):
-    def __init__(self, asn_dict, msg_name):
-        self.asn_dict = asn_dict
+    def __init__(self, its_dictionary, msg_name):
+        self.its_dictionary = asn_dict
         self.msg_name = msg_name
         self.types = dict(ChainMap(*[self.asn_dict[container]['types'] for container in self.asn_dict]))
         self.object_classes = dict(ChainMap(*[self.asn_dict[container]['object-classes'] for container in self.asn_dict]))
@@ -37,16 +37,16 @@ class AsnDictProcessor(object):
             if value is None:
                 break
             elif value['type'] in self.types:
-                members_dict[value['name']] = self.process_type(value, path + [value['name']]) | {key: value for key, value in value.items() if key not in ['type']}
+                members_dict[value['name']] = self.process_type(value, path + [value['name']]) | {key: value for key, value in value.items() if key not in ['type', 'name']}
             elif value['type'].split('.')[0] in self.object_classes:
                 members_dict[value['name']] = self.process_object_class(value, path + [value['name']])
             elif value['type'] in ['SEQUENCE', 'CHOICE']:
-                members_dict[value['name']] = self.process_members(value, path + [value['name']]) | {key: value for key, value in value.items() if key not in ['type']}
+                members_dict[value['name']] = self.process_members(value, path + [value['name']]) | {key: value for key, value in value.items() if key not in ['type', 'name']}
             elif value['type'] == 'SEQUENCE OF':
-                members_dict[value['name']] = self.process_sequence_of(value, path) | {key: value for key, value in value.items() if key not in ['type', 'element']}
+                members_dict[value['name']] = self.process_sequence_of(value, path) | {key: value for key, value in value.items() if key not in ['type', 'element', 'name']}
             else:
                 members_dict[value['name']] = value
-        return members_dict
+        return members_dict | {'member-type_type': input_dict['type']}
 
     def process_object_class(self, value, path):
         object_class_type = value['type'].split('.')
@@ -76,4 +76,4 @@ class AsnDictProcessor(object):
                 asn_path.append(path_converted[index])
         else:
             asn_path = path_converted.copy()
-        return parameter_path, asn_path
+        return path_converted, asn_path

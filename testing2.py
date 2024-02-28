@@ -1,107 +1,22 @@
-import asn1tools
-from collections import ChainMap
-import dpath
+def bytes_to_bits(bytes_value, num_bits):
+    binary_string = ''.join(format(byte, '08b') for byte in bytes_value)
+    return binary_string[:num_bits]
 
 
-class AsnDictProcessor(object):
-    def __init__(self, asn_dict, msg_name):
-        self.asn_dict = asn_dict
-        self.msg_name = msg_name
-        self.types = dict(ChainMap(*[self.asn_dict[container]['types'] for container in self.asn_dict]))
-        self.object_classes = dict(
-            ChainMap(*[self.asn_dict[container]['object-classes'] for container in self.asn_dict]))
-        self.rebuilt_asn = self.rebuild_asn(msg_name)
+def bits_to_bytes(binary_string):
+    # Ensure binary string is padded to a multiple of 8
+    binary_string = binary_string.zfill((len(binary_string) + 7) // 8 * 8)
 
-    def rebuild_asn(self, parameter_name, parameter_path=[]):
-        parameter_asn = self.types.get(parameter_name)
-        key_name = parameter_path[-1] if parameter_path else parameter_name
-        output_dict = {}
-
-        if parameter_asn is None:
-            output_dict[key_name] = 'ASN not found'
-        elif parameter_asn['type'] in self.types:
-            output_dict[key_name] = self.process_type(parameter_asn, parameter_path + [key_name])
-        elif parameter_asn['type'].split('.')[0] in self.object_classes:
-            output_dict[key_name] = self.process_object_class(parameter_asn, parameter_path + [key_name])
-        elif parameter_asn['type'] in ['SEQUENCE', 'CHOICE']:
-            output_dict[key_name] = self.process_members(parameter_asn, parameter_path + [key_name])
-        elif parameter_asn['type'] == 'SEQUENCE OF':
-            output_dict[key_name] = self.process_sequence_of(parameter_asn, parameter_path + [key_name])
-        else:
-            output_dict[key_name] = parameter_asn
-
-        return output_dict
-
-    def process_members(self, input_dict, path):
-        members_dict = {}
-        for value in input_dict.get('members'):
-            if value is None:
-                break
-            elif value['type'] in self.types:
-                members_dict[value['name']] = self.process_type(value, path + [value['name']]) | {key: value for
-                                                                                                  key, value in
-                                                                                                  value.items() if
-                                                                                                  key not in ['type']}
-            elif value['type'].split('.')[0] in self.object_classes:
-                members_dict[value['name']] = self.process_object_class(value, path + [value['name']])
-            elif value['type'] in ['SEQUENCE', 'CHOICE']:
-                members_dict[value['name']] = self.process_members(value, path + [value['name']]) | {key: value for
-                                                                                                     key, value in
-                                                                                                     value.items() if
-                                                                                                     key not in [
-                                                                                                         'type']}
-            elif value['type'] == 'SEQUENCE OF':
-                members_dict[value['name']] = self.process_sequence_of(value, path) | {key: value for key, value in
-                                                                                       value.items() if
-                                                                                       key not in ['type', 'element']}
-            else:
-                members_dict[value['name']] = value
-        return members_dict
-
-    def process_object_class(self, value, path):
-        object_class_type = value['type'].split('.')
-        for object_class_member in self.object_classes.get(object_class_type[0])['members']:
-            if object_class_member['name'] == object_class_type[1]:
-                return list(self.rebuild_asn(object_class_member['type'], path).values())[0]
-
-    def process_type(self, value, path):
-        return list(self.rebuild_asn(value['type'], path).values())[0]
-
-    def process_sequence_of(self, value, path):
-        try:
-            element_asn = self.rebuild_asn(value['element']['type'], path + [value['element']['type']])
-        except KeyError:
-            element_asn = self.rebuild_asn(list(value['element'])[0], path + [list(value['element'])[0]])
-        value['element'] = element_asn
-        return value
-
-    def convert_item_path(self, parameter_path):
-        path_converted = parameter_path.copy()
-        if any('listItem' in path_keys for path_keys in path_converted):
-            asn_path = []
-            for index, path_item in enumerate(path_converted):
-                if path_item.startswith('listItem') and not path_converted[index - 1].startswith('listItem'):
-                    asn_path.append('element')
-                    path_converted[index] = list(dpath.get(self.rebuilt_asn, asn_path).keys())[0]
-                asn_path.append(path_converted[index])
-        else:
-            asn_path = path_converted.copy()
-        return parameter_path, asn_path
+    bytes_value = bytes(int(binary_string[i:i + 8], 2) for i in range(0, len(binary_string), 8))
+    return bytes_value
 
 
-its_dictionary = asn1tools.parse_files([
-    "./asn/en/ITS-Container.asn",
-    "./asn/iso/ISO14823-missing.asn",
-    "./asn/iso/ISO_17419.1.asn",
-    "./asn/iso/ISO_14823-1 ed1_AnnexE.asn",
-    "./asn/iso/ISO17573-3(2021)EfcDataDictionary.asn",
-    "./asn/iso/ISO_TS_14816.asn",
-    "./asn/iso/ISO14906(2018)EfcDsrcApplicationv6-patched.asn",
-    "./asn/iso/ISO14906(2018)EfcDsrcGenericv7-patched.asn",
-    "./asn/iso/ISO19321IVIv2.asn",
-    "./asn/iso/ISO24534-3_ElectronicRegistrationIdentificationVehicleDataModule-patched.asn",
-    "./asn/iso/ISO-TS-19091-addgrp-C-2018.asn",
-    "./asn/ts/MAPEM-PDU-Descriptions.asn"
-])
-asn_processor = AsnDictProcessor(its_dictionary, 'MAPEM')
-dictionary = asn_processor.rebuilt_asn
+# Example usage:
+input_bytes = b'\x80'
+num_bits = 2
+
+binary_result = bytes_to_bits(input_bytes, num_bits)
+print(binary_result)  # Output: '10'
+
+bytes_result = bits_to_bytes(binary_result)
+print(bytes_result)  # Output: b'\x80'

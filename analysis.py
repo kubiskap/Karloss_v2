@@ -61,6 +61,9 @@ def analyse_packet(pkt, summary_dict, msg_dict):
             # Generic errors and warnings (based on value type)
             elif asn == 'ASN not found':
                 problems.append(Problem(1, 'ASN definition not found for this parameter.'))
+            elif not isinstance(asn, dict):
+                print(asn)
+                raise Exception(f'ASN not dict type for parameter located on "{path}"')
             elif 'type' in asn.keys():
                 if asn['type'] == 'INTEGER':
                     if 'restricted-to' in asn.keys():
@@ -130,13 +133,18 @@ def analyse_packet(pkt, summary_dict, msg_dict):
                                 sizeAllowed.append(value is None)
                         if not all(sizeAllowed):
                             problems.append(Problem(1, 'Out of specified size.'))
+            elif 'member-type_type' in asn.keys():
+                if asn['member-type_type'] == 'SEQUENCE':
+                    for member, memAsnValue in asn.items():
+                        if isinstance(memAsnValue, dict) and member not in value.keys() and memAsnValue.get('optional') is not True:
+                            problems.append(Problem(1, f'Mandatory parameter {member} missing.'))
+                        elif isinstance(memAsnValue, dict) and member not in value.keys() and memAsnValue.get('optional') is True:
+                            problems.append(Problem(0, f'Optional parameter {member} missing.'))
+                elif asn['member-type_type'] == 'CHOICE':
+                    if list(value.keys())[0] not in asn.keys():
+                        problems.append(Problem(1, f'Mandatory parameter {list(value.keys())[0]} missing.'))
             else:
-                for member, memAsnValue in asn.items():
-                    if isinstance(memAsnValue, dict) and member not in value.keys() and memAsnValue.get('optional') is not True:
-                        problems.append(Problem(1, f'Mandatory parameter {member} missing.'))
-                    elif isinstance(memAsnValue, dict) and member not in value.keys() and memAsnValue.get('optional') is True:
-                        problems.append(Problem(0, f'Optional parameter {member} missing.'))
-
+                problems.append(Problem(1, 'Type not defined.'))
             # Message type-specific errors and warnings
 
             # .... TBD ....
@@ -165,4 +173,7 @@ packets = pktClass.get_packet_array()
 
 msg_dicts = pktClass.get_its_msg_object_dict(msg_name_key=True)
 
-pktAnalysed, summary = analyse_packet(packets[7], summary, msg_dicts)
+
+for pkt in packets:
+    pktAnalysed, summary = analyse_packet(pkt, summary, msg_dicts)
+    pktsAnalysed.append(pktAnalysed)

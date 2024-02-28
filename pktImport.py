@@ -1,24 +1,13 @@
 import pyshark
-from plugins.msg import ItsMessage
 import json
+from plugins.msg import ItsMessage
 
 
 class Packets(object):
     def __init__(self,
                  input_file,
                  config_location='./config.json'):
-        self.input_file = input_file
-        self.pcap = pyshark.FileCapture(self.input_file, include_raw=True, use_json=True)
-        self.config_location = config_location
-        with open(self.config_location, 'r') as f:
-            self.config = json.loads(f.read())
-
-    def get_its_msg_object_dict(self, msg_name_key=False):  # Establish ItsMessage object for every type of msg in config
-        msg_types = {}
-        for msg_port, config_value in self.config['msgPorts'].items():
-            dict_key = config_value['msgName'] if msg_name_key else msg_port
-            msg_types[dict_key] = ItsMessage(asn_file=config_value['asnFiles'], msg_type=config_value['msgName'])
-        return msg_types
+        self.pcap = pyshark.FileCapture(input_file, include_raw=True, use_json=True)
 
     def get_packet_array(self):  # Method to decode all packets in "input_file" and stack them into a list
         packet_array = []
@@ -56,11 +45,11 @@ def process_packet(input_dict):
     for key, value in input_dict.items():
         # Convert CHOICE, which returns (str, object), to {str: object}
         if isinstance(value, tuple) and len(value) == 2 and isinstance(value[0], str):
-            output_dict[key] = {value[0]: process_packet(value[1])}
+            output_dict[key] = process_packet({value[0]: value[1]})
         # Convert BIT STRING, which returns (bytes, int) to bits
-        elif isinstance(value, tuple) and len(value) ==2 and isinstance(value[0], bytes) and isinstance(value[1], int):
-            integer_value = int.from_bytes(value[0], byteorder='big')
-            binary = bin(integer_value)[2:].zfill(value[1])
+        elif isinstance(value, tuple) and len(value) == 2 and isinstance(value[0], bytes) and isinstance(value[1], int):
+            binary_string = ''.join(format(byte, '08b') for byte in value[0])
+            binary = binary_string[:value[1]]
             output_dict[key] = binary
         # Convert nested lists into dictionary
         elif isinstance(value, list):
