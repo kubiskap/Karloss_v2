@@ -43,18 +43,28 @@ class Problem(object):
         self.desc = desc
 
 
-def analyse_packet(pkt, summary_dict, msg_dict):
-    if not isinstance(pkt, dict):
-        return pkt
+def convert_item_path(path):
+    path_converted = path.copy()
+    if any('listItem' in path_keys for path_keys in path_converted):
+        asn_path = []
+        for index, path_item in enumerate(path_converted):
+            if path_item.startswith('listItem') and not path_converted[index - 1].startswith('listItem'):
+                asn_path.append('element')
+                path_converted[index] = list(dpath.get(self.rebuilt_asn, asn_path).keys())[0]
+            asn_path.append(path_converted[index])
     else:
-        packet_analysed = process_packet(pkt)
-        msg_name = list(pkt.keys())[0].upper()
-        compiled_dict = msg_dict.get(msg_name).its_dictionary
-        asn1_processor = AsnDictProcessor(compiled_dict, msg_name)
-        asn_dictionary = asn1_processor.rebuilt_asn
+        asn_path = path_converted.copy()
+    return path_converted, asn_path
+
+
+def analyse_packet(packet, asn_dictionary, summary_dict=[]):
+    if not isinstance(packet, dict):
+        return packet, summary_dict
+    else:
+        packet_analysed = process_packet(packet)
         for path, key, value in recursive_parameters(packet_analysed):
             problems = []
-            path_converted, asn_path = asn1_processor.convert_item_path(path)
+            path_converted, asn_path = convert_item_path(path)
             asn = dpath.get(asn_dictionary, asn_path)
             if asn is None:
                 problems.append(Problem(1, 'ASN data type invalid for this parameter.'))
@@ -163,17 +173,3 @@ def analyse_packet(pkt, summary_dict, msg_dict):
             summary_add_value(summary_dict, '/'.join(list(path_converted)), state)
             dpath.set(packet_analysed, path, [value, state, None if not problem_flags else problem_descs])
         return packet_analysed, summary_dict
-
-
-summary = {}
-pktsAnalysed = []
-
-pktClass = Packets(input_file='./pcap/test4.pcap')
-packets = pktClass.get_packet_array()
-
-msg_dicts = pktClass.get_its_msg_object_dict(msg_name_key=True)
-
-
-for pkt in packets:
-    pktAnalysed, summary = analyse_packet(pkt, summary, msg_dicts)
-    pktsAnalysed.append(pktAnalysed)

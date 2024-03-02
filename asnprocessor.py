@@ -2,10 +2,9 @@ from collections import ChainMap
 import dpath
 import copy
 
-
 class AsnDictProcessor(object):
-    def __init__(self, its_dictionary, msg_name):
-        self.its_dictionary = asn_dict
+    def __init__(self, asn_dict, msg_name):
+        self.asn_dict = asn_dict
         self.msg_name = msg_name
         self.types = dict(ChainMap(*[self.asn_dict[container]['types'] for container in self.asn_dict]))
         self.object_classes = dict(ChainMap(*[self.asn_dict[container]['object-classes'] for container in self.asn_dict]))
@@ -65,15 +64,4 @@ class AsnDictProcessor(object):
         value['element'] = element_asn
         return value
 
-    def convert_item_path(self, parameter_path):
-        path_converted = parameter_path.copy()
-        if any('listItem' in path_keys for path_keys in path_converted):
-            asn_path = []
-            for index, path_item in enumerate(path_converted):
-                if path_item.startswith('listItem') and not path_converted[index - 1].startswith('listItem'):
-                    asn_path.append('element')
-                    path_converted[index] = list(dpath.get(self.rebuilt_asn, asn_path).keys())[0]
-                asn_path.append(path_converted[index])
-        else:
-            asn_path = path_converted.copy()
-        return path_converted, asn_path
+

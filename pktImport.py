@@ -1,17 +1,30 @@
 import pyshark
 import json
 from plugins.msg import ItsMessage
+from asnprocessor import AsnDictProcessor
 
 
 class Packets(object):
     def __init__(self,
                  input_file,
-                 config_location='./config.json'):
-        self.pcap = pyshark.FileCapture(input_file, include_raw=True, use_json=True)
+                 config_location):
+        self.input_file = input_file
+        self.pcap = pyshark.FileCapture(self.input_file, include_raw=True, use_json=True)
+        self.config_location = config_location
+        with open(self.config_location, 'r') as f:
+            self.config = json.loads(f.read())
+
+    def get_its_msg_dict(self, msg_name_key=False, asn_values=False):  # Establish ItsMessage object for every type of msg in config
+        configured_msgs = {}
+        for msg_port, config_value in self.config['msgPorts'].items():
+            dict_key = config_value['msgName'] if msg_name_key else msg_port
+            its_message_object = ItsMessage(asn_files=config_value['asnFiles'], msg_name=config_value['msgName'])
+            configured_msgs[dict_key] = its_message_object.asn_rebuilt if asn_values else its_message_object
+        return configured_msgs
 
     def get_packet_array(self):  # Method to decode all packets in "input_file" and stack them into a list
         packet_array = []
-        msg_types = self.get_its_msg_object_dict()
+        msg_types = self.get_its_msg_dict()
         for idx, pkt in enumerate(self.pcap):
             if 'MALFORMED' in str(pkt.layers):
                 packet_array.append(f'Packet no. {idx + 1}: malformed packet')

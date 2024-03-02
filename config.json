@@ -48,23 +48,6 @@
 				"./asn/ts/SPATEM-PDU-Descriptions.asn"
 			]
 		},
-		"2006": {
-			"msgName": "IVIM",
-			"asnFiles": [
-				"./asn/en/ITS-Container.asn",
-				"./asn/iso/ISO14823-missing.asn",
-				"./asn/iso/ISO_17419.1.asn",
-				"./asn/iso/ISO_14823-1 ed1_AnnexE.asn",
-				"./asn/iso/ISO17573-3(2021)EfcDataDictionary.asn",
-				"./asn/iso/ISO_TS_14816.asn",
-				"./asn/iso/ISO14906(2018)EfcDsrcApplicationv6-patched.asn",
-				"./asn/iso/ISO14906(2018)EfcDsrcGenericv7-patched.asn",
-				"./asn/iso/ISO19321IVIv2.asn",
-				"./asn/iso/ISO24534-3_ElectronicRegistrationIdentificationVehicleDataModule-patched.asn",
-				"./asn/iso/ISO-TS-19091-addgrp-C-2018.asn",
-				"./asn/ts/IVIM-PDU-Descriptions.asn"
-			]
-		},
 		"2007": {
 			"msgName":  "SREM",
 			"asnFiles": [
