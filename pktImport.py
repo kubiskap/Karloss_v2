@@ -26,30 +26,36 @@ class Packets(object):
         packet_array = []
         msg_types = self.get_its_msg_dict()
         for idx, pkt in enumerate(self.pcap):
-            if 'MALFORMED' in str(pkt.layers):
-                packet_array.append(f'Packet no. {idx + 1}: malformed packet')
-            elif 'ITS' in str(pkt.layers):
-                try:
-                    msg_object = msg_types.get(pkt.btpb.dstport)
-                    pkt_decoded = msg_object.decode(bytes.fromhex(pkt.its_raw.value))
-                    if len(pkt_decoded) != 0:
-                        packet_array.append(pkt_decoded)
+            if 'ITS' in str(pkt.layers):
+                if 'MALFORMED' in str(pkt.layers):
+                    packet_array.append(f'Packet no. {idx + 1}: malformed packet')
+                else:
+                    try:
+                        msg_object = msg_types.get(pkt.btpb.dstport)
+                    except KeyError:
+                        packet_array.append(
+                            f'Packet no. {idx + 1}: unsupported C-ITS message type with dstport {pkt.btpb.dstport}.')
                     else:
-                        packet_array.append(f'Packet no. {idx + 1}: decode/constraint error')
-                except KeyError:
-                    packet_array.append(f'Packet no. {idx + 1}: unsupported message type with dstport {pkt.btpb.dstport}.')
+                        pkt_decoded = msg_object.decode(bytes.fromhex(pkt.its_raw.value))
+                        if isinstance(pkt_decoded, dict):
+                            packet_array.append(pkt_decoded)
+                        else:
+                            packet_array.append(f'Packet no. {idx + 1}: {pkt_decoded}')
+            else:
+                packet_array.append(f'Packet no. {idx+1}: Not a C-ITS packet.')
         return packet_array
 
 
 def process_list(input_list):
     output_dict = {}
     for index, item in enumerate(input_list):
-        if isinstance(item, list):
-            output_dict[f'listItem{index}'] = process_list(item)
-        elif isinstance(item, dict):
-            output_dict[f'listItem{index}'] = process_packet(item)
-        else:
-            output_dict[f'listItem{index}'] = item
+        match item:
+            case list():
+                output_dict[f'listItem{index}'] = process_list(item)
+            case dict():
+                output_dict[f'listItem{index}'] = process_packet(item)
+            case _:
+                output_dict[f'listItem{index}'] = item
     return output_dict
 
 

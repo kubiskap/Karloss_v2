@@ -4,5 +4,5 @@
 from core import Karloss
 
 
-karloss = Karloss(input_file='./pcap/test4.pcap')
-#karloss.analyse()
+karloss = Karloss(input_file='./pcap/testmon6.pcap')
+karloss.analyse()
