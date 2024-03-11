@@ -1,12 +1,9 @@
-from pktImport import Packets
 from pktImport import recursive_parameters
 from pktImport import process_packet
 import dpath
-from asnprocessor import AsnDictProcessor
-import asn1tools
 
 
-def summary_add_value(val_dict, parameter, value_type):
+def summary_add_value(val_dict: dict, parameter: str, value_type: str) -> dict:
     """
     Function which adds value to a summary dictionary, depending on the parameter.
     If the parameter is not present in the dictionary, it creates it with default all-zeros values.
@@ -43,16 +40,19 @@ class Problem(object):
         self.desc = desc
 
 
-def analyse_packet(packet, asn_dictionary, summary_dict={}):
-    def convert_item_path(input_path):
+def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tuple[dict, dict[str, list]]:
+    if summary_dict is None:
+        summary_dict = {}
+
+    def convert_item_path(input_path: list):
         path_converted = input_path.copy()
         if any('listItem' in path_keys for path_keys in path_converted):
             asn_path = []
-            for index, path_item in enumerate(path_converted):
-                if path_item.startswith('listItem') and not path_converted[index - 1].startswith('listItem'):
+            for path_idx, path_item in enumerate(path_converted):
+                if path_item.startswith('listItem') and not path_converted[path_idx - 1].startswith('listItem'):
                     asn_path.append('element')
-                    path_converted[index] = list(dpath.get(asn_dictionary, asn_path).keys())[0]
-                asn_path.append(path_converted[index])
+                    path_converted[path_idx] = list(dpath.get(asn_dictionary, asn_path).keys())[0]
+                asn_path.append(path_converted[path_idx])
         else:
             asn_path = path_converted.copy()
         return path_converted, asn_path
@@ -73,11 +73,11 @@ def analyse_packet(packet, asn_dictionary, summary_dict={}):
         elif 'type' in asn.keys():
             if asn['type'] == 'INTEGER':
                 if 'restricted-to' in asn.keys():
-                    inRange = []
+                    in_range = []
                     for restriction in asn['restricted-to']:
                         if restriction is not None:
-                            inRange.append(value in range(restriction[0], restriction[1] + 1))
-                    if not all(inRange):
+                            in_range.append(value in range(restriction[0], restriction[1] + 1))
+                    if not all(in_range):
                         problems.append(Problem(1, 'Out of range.'))
                 if 'named-numbers' in asn.keys():
                     try:
@@ -93,25 +93,25 @@ def analyse_packet(packet, asn_dictionary, summary_dict={}):
                                      list(asn['named-numbers'].values()).index(value)]]
             elif asn['type'] == 'ENUMERATED':
                 if 'values' in asn.keys():
-                    valueList = []
+                    value_list = []
                     for i in asn['values']:
                         if isinstance(i, tuple):
-                            valueList.append(i[0])
+                            value_list.append(i[0])
                         else:
-                            valueList.append(i)
-                    if value not in valueList:
+                            value_list.append(i)
+                    if value not in value_list:
                         problems.append(Problem(1, 'Value not in defined values.'))
                     elif value == 'unavailable':
                         problems.append(Problem(0, 'Value is unavailable.'))
             elif asn['type'] in ['IA5String', 'NumericString', 'SEQUENCE OF']:
                 if 'size' in asn.keys():
-                    sizeAllowed = []
+                    size_allowed = []
                     for size in asn['size']:
                         if not None:
-                            sizeAllowed.append(len(value) in range(size[0], size[1] + 1))
+                            size_allowed.append(len(value) in range(size[0], size[1] + 1))
                         else:
-                            sizeAllowed.append(value is None)
-                    if not all(sizeAllowed):
+                            size_allowed.append(value is None)
+                    if not all(size_allowed):
                         problems.append(Problem(1, 'Out of specified size.'))
             elif asn['type'] == 'BIT STRING':
                 if 'size' in asn.keys():
@@ -123,21 +123,22 @@ def analyse_packet(packet, asn_dictionary, summary_dict={}):
                         if bit == '1':
                             bits_activated.append(asn['named-bits'][index][0])
                     value = [value, bits_activated]
-            elif asn['type'] == 'BOOLEAN':
-                if not isinstance(value, bool):
-                    problems.append(Problem(1, 'Not specified type.'))
-            elif asn['type'] == 'OCTET STRING':
-                if not isinstance(value, bytes):
-                    problems.append(Problem(1, 'Not specified type.'))
+# --- The asn1tools compiler should be doing this
+#            elif asn['type'] == 'BOOLEAN':
+#                if not isinstance(value, bool):
+#                    problems.append(Problem(1, 'Not specified type.'))
+#            elif asn['type'] == 'OCTET STRING':
+#                if not isinstance(value, bytes):
+#                    problems.append(Problem(1, 'Not specified type.'))
             elif asn['type'] == 'SEQUENCE OF':
                 if 'size' in asn.keys():
-                    sizeAllowed = []
+                    size_allowed = []
                     for size in asn['size']:
                         if not None:
-                            sizeAllowed.append(len(value.keys()) in range(size[0], size[1] + 1))
+                            size_allowed.append(len(value.keys()) in range(size[0], size[1] + 1))
                         else:
-                            sizeAllowed.append(value is None)
-                    if not all(sizeAllowed):
+                            size_allowed.append(value is None)
+                    if not all(size_allowed):
                         problems.append(Problem(1, 'Out of specified size.'))
         elif 'member-type_type' in asn.keys():
             if asn['member-type_type'] == 'SEQUENCE':

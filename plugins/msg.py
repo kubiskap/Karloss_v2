@@ -1,4 +1,3 @@
-import sys
 import asn1tools
 from collections import ChainMap
 
@@ -24,12 +23,15 @@ class ItsMessage(object):
         except asn1tools.DecodeError or asn1tools.ConstraintsError as ASNerror:
             return f'{repr(ASNerror).split('(')[0]}({str(ASNerror)})'
 
-    def rebuild_asn(self, parameter_name, parameter_path=[]):
+    def rebuild_asn(self, parameter_name: str, parameter_path=None) -> dict:
+        if parameter_path is None:
+            parameter_path = []
+
         types = dict(ChainMap(*[self.its_dictionary[container]['types'] for container in self.its_dictionary]))
         object_classes = dict(
             ChainMap(*[self.its_dictionary[container]['object-classes'] for container in self.its_dictionary]))
 
-        def process_members(input_dict, path):
+        def process_members(input_dict: dict, path: list) -> dict:
             members_dict = {}
             for value in input_dict.get('members'):
                 if value is not None:
@@ -61,16 +63,16 @@ class ItsMessage(object):
                     break
             return members_dict | {'member-type_type': input_dict['type']}
 
-        def process_object_class(value, path):
+        def process_object_class(value: dict, path: list) -> str:
             object_class_type = value['type'].split('.')
             for object_class_member in object_classes.get(object_class_type[0])['members']:
                 if object_class_member['name'] == object_class_type[1]:
                     return list(self.rebuild_asn(object_class_member['type'], path).values())[0]
 
-        def process_type(value, path):
+        def process_type(value: dict, path: list) -> dict:
             return list(self.rebuild_asn(value['type'], path).values())[0]
 
-        def process_sequence_of(value, path):
+        def process_sequence_of(value: dict, path: list) -> dict:
             output = value.copy()
             try:
                 element_asn = self.rebuild_asn(value['element']['type'], path + [value['element']['type']])

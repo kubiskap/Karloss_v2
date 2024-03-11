@@ -7,15 +7,8 @@
     <list default="true" id="73104e0c-0c63-4a69-89b2-747e0bc52f66" name="Changes" comment="Minor program restructulization. Had to remove IVIM from config -- caused RecursionError (need to debug).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/asnprocessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/asnprocessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/its_map_after.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/its_map_before.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pktImport.py" beforeDir="false" afterPath="$PROJECT_DIR$/pktImport.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plugins/msg.py" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/msg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing2.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +214,7 @@
       <workItem from="1709310509970" duration="409000" />
       <workItem from="1709408090075" duration="5819000" />
       <workItem from="1709637177173" duration="472000" />
-      <workItem from="1709639356622" duration="25261000" />
+      <workItem from="1709639356622" duration="31531000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -279,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709410700858</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Minor program restructulization. Had to remove IVIM from config -- caused RecursionError (need to debug).">
+      <option name="closed" value="true" />
+      <created>1710152747299</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1710152747299</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
