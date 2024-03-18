@@ -41,10 +41,23 @@ class Problem(object):
 
 
 def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tuple[dict, dict[str, list]]:
+    """
+    Function that analyses each parameter of the packet. Takes data from generator "recursive_parameters" specified in
+    "pktImport.py".
+    Uses dpath to retrieve parameter specification from asn_dictionary, which is created for each message type specified in a config.
+    Then, depending on the type of parameter, checks if value is in named-numbers, checks if all mandatory parameters are present, etc.
+    """
     if summary_dict is None:
         summary_dict = {}
 
     def convert_item_path(input_path: list):
+        """
+        Sub-function that converts path containing any "listItem" keys. Determines type of item based on superior
+        parameter and replaces each "listItem" with the parameter in specification of superior parameter (which should
+        always be of type "SEQUENCE OF".
+
+        Also converts path of the asn specification, which corresponds to asn_dictionary structure.
+        """
         path_converted = input_path.copy()
         if any('listItem' in path_keys for path_keys in path_converted):
             asn_path = []
@@ -59,19 +72,25 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
 
     packet_analysed = process_packet(packet)
     for path, key, value in recursive_parameters(packet_analysed):
-        problems = []
+        problems = []  # If a problem is detected with parameter, the details are added in this list.
         path_converted, asn_path = convert_item_path(path)
-        asn = dpath.get(asn_dictionary, asn_path)
+        asn = dpath.get(asn_dictionary, asn_path)  # gets the ASN specification
         if asn is None:
+            # asn variable should never be None.
             problems.append(Problem(1, 'ASN data type invalid for this parameter.'))
-        # Generic errors and warnings (based on value type)
         elif asn == 'ASN not found':
+            # This means that the ASN decompiler could not find a definition for this parameter type.
             problems.append(Problem(1, 'ASN definition not found for this parameter.'))
         elif not isinstance(asn, dict):
+            # In case "asn" is not dict, throw a TypeError.
             print(asn)
-            raise Exception(f'ASN not dict type for parameter located on "{path}"')
+            raise TypeError(f'ASN not dict type for parameter located on "{path}"')
+        # Generic errors and warnings (based on value type)
         elif 'type' in asn.keys():
+            # Type key is found in all data types except "SEQUENCE" and "CHOICE".
+
             if asn['type'] == 'INTEGER':
+
                 if 'restricted-to' in asn.keys():
                     in_range = []
                     for restriction in asn['restricted-to']:
@@ -79,6 +98,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
                             in_range.append(value in range(restriction[0], restriction[1] + 1))
                     if not all(in_range):
                         problems.append(Problem(1, 'Out of range.'))
+
                 if 'named-numbers' in asn.keys():
                     try:
                         if value == asn['named-numbers']['unavailable']:
@@ -91,6 +111,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
                         value = [value,
                                  list(asn['named-numbers'].keys())[
                                      list(asn['named-numbers'].values()).index(value)]]
+
             elif asn['type'] == 'ENUMERATED':
                 if 'values' in asn.keys():
                     value_list = []
@@ -103,6 +124,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
                         problems.append(Problem(1, 'Value not in defined values.'))
                     elif value == 'unavailable':
                         problems.append(Problem(0, 'Value is unavailable.'))
+
             elif asn['type'] in ['IA5String', 'NumericString', 'SEQUENCE OF']:
                 if 'size' in asn.keys():
                     size_allowed = []
@@ -113,6 +135,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
                             size_allowed.append(value is None)
                     if not all(size_allowed):
                         problems.append(Problem(1, 'Out of specified size.'))
+
             elif asn['type'] == 'BIT STRING':
                 if 'size' in asn.keys():
                     if len(value) != asn['size'][0]:
@@ -123,6 +146,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
                         if bit == '1':
                             bits_activated.append(asn['named-bits'][index][0])
                     value = [value, bits_activated]
+
 # --- The asn1tools compiler should be doing this
 #            elif asn['type'] == 'BOOLEAN':
 #                if not isinstance(value, bool):
@@ -130,6 +154,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
 #            elif asn['type'] == 'OCTET STRING':
 #                if not isinstance(value, bytes):
 #                    problems.append(Problem(1, 'Not specified type.'))
+
             elif asn['type'] == 'SEQUENCE OF':
                 if 'size' in asn.keys():
                     size_allowed = []
@@ -140,23 +165,32 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
                             size_allowed.append(value is None)
                     if not all(size_allowed):
                         problems.append(Problem(1, 'Out of specified size.'))
+
         elif 'member-type_type' in asn.keys():
+            # "member-type_type" is found in only "SEQUENCE" and "CHOICE" parameter types. The reason for the different
+            # naming of the key is because there might be a sub-parameter named "type", which would be
+            # then subsequently overwritten by the key 'type': 'SEQUENCE'/'CHOICE'
+
             if asn['member-type_type'] == 'SEQUENCE':
                 for member, memAsnValue in asn.items():
                     if isinstance(memAsnValue, dict) and member not in value.keys() and memAsnValue.get('optional') is not True:
                         problems.append(Problem(1, f'Mandatory parameter {member} missing.'))
                     elif isinstance(memAsnValue, dict) and member not in value.keys() and memAsnValue.get('optional') is True:
                         problems.append(Problem(0, f'Optional parameter {member} missing.'))
+
             elif asn['member-type_type'] == 'CHOICE':
                 if list(value.keys())[0] not in asn.keys():
                     problems.append(Problem(1, f'Mandatory parameter {list(value.keys())[0]} missing.'))
+
         else:
             problems.append(Problem(1, 'Type not defined.'))
         # Message type-specific errors and warnings
 
         # .... TBD ....
 
-        # Evaluation
+        # Evaluation - problem objects are added into lists and then the value of parameter is overwritten by list of
+        # [<parameter value>, <state of parameter - Error/Warning/OK>, <list of problem descriptions or
+        # None if there are none present>].
         problem_flags, problem_descs = [], []
         for problem in problems:
             problem_flags.append(problem.flag)

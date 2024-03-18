@@ -4,10 +4,7 @@ from collections import ChainMap
 
 class ItsMessage(object):
     """
-    Main ITS message object. Each ITS message type has its own set of ASN files (the dictionary) and a name.
-
-    The main purpose of this class is to decode the packets taken from pcap file using asn1tools library
-    and to recompile the ASN dictionary of each message, which is then used for analysis.
+    ETSI ITS message
     """
 
     def __init__(
@@ -27,9 +24,6 @@ class ItsMessage(object):
             return f'{repr(ASNerror).split('(')[0]}({str(ASNerror)})'
 
     def rebuild_asn(self, parameter_name: str, parameter_path=None) -> dict:
-        """
-        Method to rebuild ASN file into a nested dictionary form.
-        """
         if parameter_path is None:
             parameter_path = []
 

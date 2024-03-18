@@ -5,6 +5,9 @@ from analysis import analyse_packet
 
 class Karloss(object):
     def __init__(self, input_file, config_location='./config.json'):
+        """
+        Initialises packet array, ASN dictionaries for each message type configured and variables to fill.
+        """
         self.pkts_analysed = []
         packet_object = Packets(input_file=input_file, config_location=config_location)
         self.packet_array = packet_object.get_packet_array()
@@ -12,6 +15,9 @@ class Karloss(object):
         self.summary = {}
 
     def analyse(self):
+        """
+        Main wrapper that starts analysis for each packet.
+        """
         time_start = datetime.datetime.now()
         for pkt in self.packet_array:
             if isinstance(pkt, dict):
