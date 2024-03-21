@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73104e0c-0c63-4a69-89b2-747e0bc52f66" name="Changes" comment="Code optimalization">
-      <change afterPath="$PROJECT_DIR$/msg.py" afterDir="false" />
+    <list default="true" id="73104e0c-0c63-4a69-89b2-747e0bc52f66" name="Changes" comment="Added comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pktImport.py" beforeDir="false" afterPath="$PROJECT_DIR$/pktImport.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/msg.py" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/msg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing2.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing2.py" afterDir="false" />
     </list>
@@ -61,25 +56,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/kubiskap/Nextcloud/Škola/Vysoká škola/BP/Karloss_v2",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kubiskap/Nextcloud/Škola/Vysoká škola/BP/Karloss_v2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kubiskap\Nextcloud\Škola\Vysoká škola\BP\Karloss_v2" />
@@ -88,7 +83,7 @@
       <recent name="C:\Users\kubiskap\Nextcloud\Škola\Vysoká škola\BP\Karloss_v2\Karloss" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.testing2">
+  <component name="RunManager" selected="Python.testing">
     <configuration name="analysis" type="PythonConfigurationType" factoryName="Python">
       <module name="Karloss_v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -137,9 +132,6 @@
       <module name="Karloss_v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -229,7 +221,9 @@
       <workItem from="1709637177173" duration="472000" />
       <workItem from="1709639356622" duration="38706000" />
       <workItem from="1710250282881" duration="2586000" />
-      <workItem from="1710768045101" duration="1767000" />
+      <workItem from="1710768045101" duration="1795000" />
+      <workItem from="1710777058683" duration="2314000" />
+      <workItem from="1711013800898" duration="1720000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -303,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710163305879</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added comments">
+      <option name="closed" value="true" />
+      <created>1710769851873</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1710769851873</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,7 +343,8 @@
     <MESSAGE value="Analysis now working for all tested message types.&#10;&#10;TO-DO: Re-structure program and add comments." />
     <MESSAGE value="Minor program restructulization. Had to remove IVIM from config -- caused RecursionError (need to debug)." />
     <MESSAGE value="Code optimalization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code optimalization" />
+    <MESSAGE value="Added comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added comments" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/analysis__conflicted_copy_2024_02_07_210817__py$main.coverage" NAME="main Coverage Results" MODIFIED="1707917677735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

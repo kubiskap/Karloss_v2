@@ -43,25 +43,23 @@ asn_dictionaries = packet_object.get_its_msg_dict(msg_name_key=True, asn_values=
 time_end = datetime.datetime.now()
 print(f' done in {(time_end - time_start).total_seconds()} seconds.')
 
+print('Analysing packets...')
 summary = {}
+time_start = datetime.datetime.now()
+l, i = len(packet_array), 0
+printProgressBar(i, l, prefix='Progress:', suffix='Complete', length=50)
+for pkt in packet_array:
+    if isinstance(pkt, dict):
+        packet_msg_type = list(pkt.keys())[0]
+        asn_dictionary = asn_dictionaries.get(packet_msg_type)
+        pkt_analysed, summary = analyse_packet(pkt, asn_dictionary, summary)
+        pkts_analysed.append(pkt_analysed)
+    else:
+        pkts_analysed.append(pkt)
+    i += 1
+    printProgressBar(i + 1, l, prefix='Progress:', suffix='Complete', length=50)
+time_end = datetime.datetime.now()
+print('-----------------------------------\n'
+      f'Duration: {(time_end - time_start).total_seconds() / 60} min; Packets analysed: {len(packet_array)}')
 
 
-def analyse():
-    global summary
-    time_start = datetime.datetime.now()
-    l, i = len(packet_array), 0
-    printProgressBar(i, l, prefix='Progress:', suffix='Complete', length=50)
-    for pkt in packet_array:
-        if isinstance(pkt, dict):
-            packet_msg_type = list(pkt.keys())[0]
-            asn_dictionary = asn_dictionaries.get(packet_msg_type)
-            pkt_analysed, summary = analyse_packet(pkt, asn_dictionary, summary)
-            pkts_analysed.append(pkt_analysed)
-        else:
-            pkts_analysed.append(pkt)
-        i += 1
-        printProgressBar(i + 1, l, prefix='Progress:', suffix='Complete', length=50)
-    time_end = datetime.datetime.now()
-    print(f'Duration: {(time_end - time_start).total_seconds() / 60} min; Packets analysed: {len(packet_array)}')
-
-# analyse()
