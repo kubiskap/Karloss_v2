@@ -120,6 +120,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
             elif asn['type'] == 'ENUMERATED':
                 if 'values' in asn.keys():
                     value_list = []
+
                     for i in asn['values']:
                         if isinstance(i, tuple):
                             value_list.append(i[0])
