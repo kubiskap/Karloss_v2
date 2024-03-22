@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73104e0c-0c63-4a69-89b2-747e0bc52f66" name="Changes" comment="Added comments">
+    <list default="true" id="73104e0c-0c63-4a69-89b2-747e0bc52f66" name="Changes" comment="Testing SW">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing2.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +82,7 @@
       <recent name="C:\Users\kubiskap\Nextcloud\Škola\Vysoká škola\BP\Karloss_v2\Karloss" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.testing">
+  <component name="RunManager" selected="Python.testing2">
     <configuration name="analysis" type="PythonConfigurationType" factoryName="Python">
       <module name="Karloss_v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -151,9 +150,6 @@
       <module name="Karloss_v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -223,7 +219,7 @@
       <workItem from="1710250282881" duration="2586000" />
       <workItem from="1710768045101" duration="1795000" />
       <workItem from="1710777058683" duration="2314000" />
-      <workItem from="1711013800898" duration="1720000" />
+      <workItem from="1711013800898" duration="8521000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -305,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710769851873</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Testing SW">
+      <option name="closed" value="true" />
+      <created>1711016075178</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1711016075178</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,14 +348,15 @@
     <MESSAGE value="Minor program restructulization. Had to remove IVIM from config -- caused RecursionError (need to debug)." />
     <MESSAGE value="Code optimalization" />
     <MESSAGE value="Added comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added comments" />
+    <MESSAGE value="Testing SW" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing SW" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/analysis__conflicted_copy_2024_02_07_210817__py$main.coverage" NAME="main Coverage Results" MODIFIED="1707917677735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Karloss_v2$main.coverage" NAME="main Coverage Results" MODIFIED="1706030566867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/analysis__conflicted_copy_2024_02_07_210817__py$analysis.coverage" NAME="analysis Coverage Results" MODIFIED="1709112941310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
     <SUITE FILE_PATH="coverage/Karloss_v2$testing.coverage" NAME="testing Coverage Results" MODIFIED="1706030595845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/analysis__conflicted_copy_2024_02_07_210817__py$testing2.coverage" NAME="testing2 Coverage Results" MODIFIED="1710252489265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
+    <SUITE FILE_PATH="coverage/analysis__conflicted_copy_2024_02_07_210817__py$testing2.coverage" NAME="testing2 Coverage Results" MODIFIED="1711022457379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
     <SUITE FILE_PATH="coverage/analysis__conflicted_copy_2024_02_07_210817__py$testing.coverage" NAME="testing Coverage Results" MODIFIED="1710164511355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
   </component>
 </project>

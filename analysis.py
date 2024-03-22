@@ -1,6 +1,6 @@
 from pktImport import recursive_parameters
 from pktImport import process_packet
-import dpath
+import jsonpath_ng
 
 
 def summary_add_value(val_dict: dict, parameter: str, value_type: str) -> dict:
@@ -44,13 +44,13 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
     """
     Function that analyses each parameter of the packet. Takes data from generator "recursive_parameters" specified in
     "pktImport.py".
-    Uses dpath to retrieve parameter specification from asn_dictionary, which is created for each message type specified in a config.
+    Uses jsonpath_ng to retrieve parameter specification from asn_dictionary, which is created for each message type specified in a config.
     Then, depending on the type of parameter, checks if value is in named-numbers, checks if all mandatory parameters are present, etc.
     """
     if summary_dict is None:
         summary_dict = {}
 
-    def convert_item_path(input_path: list):
+    def convert_item_path(input_path: list) -> tuple[list, str]:
         """
         Sub-function that converts path containing any "listItem" keys. Determines type of item based on superior
         parameter and replaces each "listItem" with the parameter in specification of superior parameter (which should
@@ -59,12 +59,14 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
         Also converts path of the asn specification, which corresponds to asn_dictionary structure.
         """
         path_converted = input_path.copy()
+        path_converted = input_path.copy()
         if any('listItem' in path_keys for path_keys in path_converted):
             asn_path = []
             for path_idx, path_item in enumerate(path_converted):
                 if path_item.startswith('listItem') and not path_converted[path_idx - 1].startswith('listItem'):
                     asn_path.append('element')
-                    path_converted[path_idx] = list(dpath.get(asn_dictionary, asn_path).keys())[0]
+                    matches_element = jsonpath_ng.parse("$." + ".".join(asn_path)).find(asn_dictionary)
+                    path_converted[path_idx] = list(matches_element[0].value.keys())[0]
                 asn_path.append(path_converted[path_idx])
         else:
             asn_path = path_converted.copy()
@@ -74,11 +76,14 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
     for path, key, value in recursive_parameters(packet_analysed):
         problems = []  # If a problem is detected with parameter, the details are added in this list.
         path_converted, asn_path = convert_item_path(path)
-        asn = dpath.get(asn_dictionary, asn_path)  # gets the ASN specification
-        if asn is None:
-            # asn variable should never be None.
-            problems.append(Problem(1, 'ASN data type invalid for this parameter.'))
-        elif asn == 'ASN not found':
+        asn_matches = jsonpath_ng.parse("$." + ".".join(asn_path)).find(asn_dictionary)
+        if not asn_matches:
+            # Parameter not found in ASN dictionary
+            problems.append(Problem(1, 'ASN data type invalid or definition not found for this parameter.'))
+            break
+        else:
+            asn = asn_matches[0].value
+        if asn == 'ASN not found':
             # This means that the ASN decompiler could not find a definition for this parameter type.
             problems.append(Problem(1, 'ASN definition not found for this parameter.'))
         elif not isinstance(asn, dict):
@@ -202,6 +207,11 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
         else:
             state = 'OK'
 
-        summary_add_value(summary_dict, '/'.join(list(path_converted)), state)
-        dpath.set(packet_analysed, path, [value, state, None if not problem_flags else problem_descs])
+        summary_add_value(summary_dict, '.'.join(list(path_converted)), state)
+        # Construct the value to be assigned
+        value_to_set = [value, state, None if not problem_flags else problem_descs]
+
+        matches = jsonpath_ng.parse("$." + ".".join(path)).find(packet_analysed)
+        # Set the value directly using JSONPath
+        matches[0].full_path.update(packet_analysed, value_to_set)
     return packet_analysed, summary_dict
