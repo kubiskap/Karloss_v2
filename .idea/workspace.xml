@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73104e0c-0c63-4a69-89b2-747e0bc52f66" name="Changes" comment="Testing SW">
+    <list default="true" id="73104e0c-0c63-4a69-89b2-747e0bc52f66" name="Changes" comment="Changed from using &quot;dpath&quot; to usin &quot;jsonpath_ng&quot;, tested on test4.pcap - analysis time cut down in half!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing2.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +219,7 @@
       <workItem from="1710250282881" duration="2586000" />
       <workItem from="1710768045101" duration="1795000" />
       <workItem from="1710777058683" duration="2314000" />
-      <workItem from="1711013800898" duration="8521000" />
+      <workItem from="1711013800898" duration="11541000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -309,7 +309,23 @@
       <option name="project" value="LOCAL" />
       <updated>1711016075178</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Changed from using &quot;dpath&quot; to usin &quot;jsonpath_ng&quot;, tested on test4.pcap - analysis time cut down in half!!">
+      <option name="closed" value="true" />
+      <created>1711093637318</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1711093637318</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Changed from using &quot;dpath&quot; to usin &quot;jsonpath_ng&quot;, tested on test4.pcap - analysis time cut down in half!!">
+      <option name="closed" value="true" />
+      <created>1711093664694</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1711093664694</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +365,9 @@
     <MESSAGE value="Code optimalization" />
     <MESSAGE value="Added comments" />
     <MESSAGE value="Testing SW" />
-    <option name="LAST_COMMIT_MESSAGE" value="Testing SW" />
+    <MESSAGE value="Switching from &quot;dpath&quot; to &quot;jsonpath_ng&quot;, tested on test4.pcap - analysis time cut down in half!!" />
+    <MESSAGE value="Changed from using &quot;dpath&quot; to usin &quot;jsonpath_ng&quot;, tested on test4.pcap - analysis time cut down in half!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed from using &quot;dpath&quot; to usin &quot;jsonpath_ng&quot;, tested on test4.pcap - analysis time cut down in half!!" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/analysis__conflicted_copy_2024_02_07_210817__py$main.coverage" NAME="main Coverage Results" MODIFIED="1707917677735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

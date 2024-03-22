@@ -45,21 +45,28 @@ print(f' done in {(time_end - time_start).total_seconds()} seconds.')
 
 print('Analysing packets...')
 summary = {}
-time_start = datetime.datetime.now()
-l, i = len(packet_array), 0
-printProgressBar(i, l, prefix='Progress:', suffix='Complete', length=50)
-for pkt in packet_array:
+time_analysis_start = datetime.datetime.now()
+
+for idx, pkt in enumerate(packet_array):
+    time_packet_start = datetime.datetime.now()
     if isinstance(pkt, dict):
         packet_msg_type = list(pkt.keys())[0]
         asn_dictionary = asn_dictionaries.get(packet_msg_type)
         pkt_analysed, summary = analyse_packet(pkt, asn_dictionary, summary)
         pkts_analysed.append(pkt_analysed)
+
+        time_packet_end = datetime.datetime.now()
+        print(
+            f'{packet_msg_type} packet {idx+1}/{len(packet_array)} analysed in {(time_packet_end - time_packet_start).total_seconds()} seconds.')
     else:
         pkts_analysed.append(pkt)
+        time_packet_end = datetime.datetime.now()
+        print(
+            f'Packet {idx+1}/{len(packet_array)} was not analysed ({(time_packet_end - time_packet_start).total_seconds()} s). The reason was: {pkt}')
     i += 1
-    printProgressBar(i + 1, l, prefix='Progress:', suffix='Complete', length=50)
-time_end = datetime.datetime.now()
+
+time_analysis_end = datetime.datetime.now()
 print('-----------------------------------\n'
-      f'Duration: {(time_end - time_start).total_seconds() / 60} min; Packets analysed: {len(packet_array)}')
+      f'Duration: {(time_analysis_end - time_analysis_start).total_seconds() / 60} min; Packets analysed: {len(packet_array)}')
 
 
