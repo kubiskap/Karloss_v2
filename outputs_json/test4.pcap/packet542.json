@@ -1,0 +1,1208 @@
+{
+    "CAM": [
+        {
+            "header": [
+                {
+                    "protocolVersion": [
+                        2,
+                        "OK",
+                        null
+                    ],
+                    "messageID": [
+                        [
+                            2,
+                            "cam"
+                        ],
+                        "OK",
+                        null
+                    ],
+                    "stationID": [
+                        2228942367,
+                        "OK",
+                        null
+                    ]
+                },
+                "OK",
+                null
+            ],
+            "cam": [
+                {
+                    "generationDeltaTime": [
+                        12352,
+                        "Warning",
+                        [
+                            "Value not in named-numbers."
+                        ]
+                    ],
+                    "camParameters": [
+                        {
+                            "basicContainer": [
+                                {
+                                    "stationType": [
+                                        [
+                                            6,
+                                            "bus"
+                                        ],
+                                        "OK",
+                                        null
+                                    ],
+                                    "referencePosition": [
+                                        {
+                                            "latitude": [
+                                                491727066,
+                                                "Warning",
+                                                [
+                                                    "Value not in named-numbers."
+                                                ]
+                                            ],
+                                            "longitude": [
+                                                165978200,
+                                                "Warning",
+                                                [
+                                                    "Value not in named-numbers."
+                                                ]
+                                            ],
+                                            "positionConfidenceEllipse": [
+                                                {
+                                                    "semiMajorConfidence": [
+                                                        176,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "semiMinorConfidence": [
+                                                        176,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "semiMajorOrientation": [
+                                                        [
+                                                            0,
+                                                            "wgs84North"
+                                                        ],
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "altitude": [
+                                                {
+                                                    "altitudeValue": [
+                                                        21350,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "altitudeConfidence": [
+                                                        "alt-005-00",
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "OK",
+                                        null
+                                    ]
+                                },
+                                "OK",
+                                null
+                            ],
+                            "highFrequencyContainer": [
+                                {
+                                    "basicVehicleContainerHighFrequency": [
+                                        {
+                                            "heading": [
+                                                {
+                                                    "headingValue": [
+                                                        2711,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "headingConfidence": [
+                                                        100,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "speed": [
+                                                {
+                                                    "speedValue": [
+                                                        [
+                                                            0,
+                                                            "standstill"
+                                                        ],
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "speedConfidence": [
+                                                        50,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "driveDirection": [
+                                                "unavailable",
+                                                "Warning",
+                                                [
+                                                    "Value is unavailable."
+                                                ]
+                                            ],
+                                            "vehicleLength": [
+                                                {
+                                                    "vehicleLengthValue": [
+                                                        125,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "vehicleLengthConfidenceIndication": [
+                                                        "noTrailerPresent",
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "vehicleWidth": [
+                                                25,
+                                                "Warning",
+                                                [
+                                                    "Value not in named-numbers."
+                                                ]
+                                            ],
+                                            "longitudinalAcceleration": [
+                                                {
+                                                    "longitudinalAccelerationValue": [
+                                                        2,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "longitudinalAccelerationConfidence": [
+                                                        [
+                                                            102,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "curvature": [
+                                                {
+                                                    "curvatureValue": [
+                                                        [
+                                                            1023,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ],
+                                                    "curvatureConfidence": [
+                                                        "unavailable",
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "curvatureCalculationMode": [
+                                                "unavailable",
+                                                "Warning",
+                                                [
+                                                    "Value is unavailable."
+                                                ]
+                                            ],
+                                            "yawRate": [
+                                                {
+                                                    "yawRateValue": [
+                                                        -10,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "yawRateConfidence": [
+                                                        "unavailable",
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "lateralAcceleration": [
+                                                {
+                                                    "lateralAccelerationValue": [
+                                                        2,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "lateralAccelerationConfidence": [
+                                                        [
+                                                            102,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "verticalAcceleration": [
+                                                {
+                                                    "verticalAccelerationValue": [
+                                                        95,
+                                                        "Warning",
+                                                        [
+                                                            "Value not in named-numbers."
+                                                        ]
+                                                    ],
+                                                    "verticalAccelerationConfidence": [
+                                                        [
+                                                            102,
+                                                            "unavailable"
+                                                        ],
+                                                        "Warning",
+                                                        [
+                                                            "Value is unavailable."
+                                                        ]
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "Warning",
+                                        [
+                                            "Optional parameter accelerationControl missing.",
+                                            "Optional parameter lanePosition missing.",
+                                            "Optional parameter steeringWheelAngle missing.",
+                                            "Optional parameter performanceClass missing.",
+                                            "Optional parameter cenDsrcTollingZone missing."
+                                        ]
+                                    ]
+                                },
+                                "OK",
+                                null
+                            ],
+                            "lowFrequencyContainer": [
+                                {
+                                    "basicVehicleContainerLowFrequency": [
+                                        {
+                                            "vehicleRole": [
+                                                "publicTransport",
+                                                "OK",
+                                                null
+                                            ],
+                                            "exteriorLights": [
+                                                [
+                                                    "00000000",
+                                                    []
+                                                ],
+                                                "OK",
+                                                null
+                                            ],
+                                            "pathHistory": [
+                                                {
+                                                    "listItem0": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                1100,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem1": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        17,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                1100,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem2": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        -17,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        33,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -20,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                600,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem3": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        -17,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        67,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -30,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                500,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem4": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        17,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        183,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -30,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                700,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem5": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        17,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        150,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -60,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                500,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem6": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        16,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        100,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -20,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                300,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem7": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        17,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        67,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -20,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                200,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem8": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        33,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        250,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -40,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                700,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem9": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        33,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -40,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                100,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem10": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        100,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -40,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                300,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem11": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        333,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -70,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                900,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem12": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        34,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        267,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -10,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                600,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem13": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        533,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -20,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                1100,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem14": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        0,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        584,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -30,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                1100,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem15": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        -50,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        516,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -60,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                900,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem16": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        -34,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        434,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -40,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                700,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem17": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        -50,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        483,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -30,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                700,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem18": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        -50,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        617,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -20,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                800,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "listItem19": [
+                                                        {
+                                                            "pathPosition": [
+                                                                {
+                                                                    "deltaLatitude": [
+                                                                        -16,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaLongitude": [
+                                                                        566,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ],
+                                                                    "deltaAltitude": [
+                                                                        -10,
+                                                                        "Warning",
+                                                                        [
+                                                                            "Value not in named-numbers."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "pathDeltaTime": [
+                                                                700,
+                                                                "Warning",
+                                                                [
+                                                                    "Value not in named-numbers."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "OK",
+                                        null
+                                    ]
+                                },
+                                "OK",
+                                null
+                            ],
+                            "specialVehicleContainer": [
+                                {
+                                    "publicTransportContainer": [
+                                        {
+                                            "embarkationStatus": [
+                                                true,
+                                                "OK",
+                                                null
+                                            ],
+                                            "ptActivation": [
+                                                {
+                                                    "ptActivationType": [
+                                                        [
+                                                            0,
+                                                            "undefinedCodingType"
+                                                        ],
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "ptActivationData": [
+                                                        "b'\\x11\\t?\\x00\\xeeT\\x01\\xa4\\x00\\xef\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00'",
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "OK",
+                                        null
+                                    ]
+                                },
+                                "OK",
+                                null
+                            ]
+                        },
+                        "OK",
+                        null
+                    ]
+                },
+                "OK",
+                null
+            ]
+        },
+        "OK",
+        null
+    ]
+}

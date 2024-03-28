@@ -1,7 +1,8 @@
 import datetime
 from pktImport import Packets
 from analysis import analyse_packet
-
+import os
+import json
 
 # Print iterations progress
 def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='█', printEnd="\r"):
@@ -47,23 +48,33 @@ print('Analysing packets...')
 summary = {}
 time_analysis_start = datetime.datetime.now()
 
+# Get the name of the input file without the path and use it as a subfolder name
+subfolder_name = os.path.basename(input_file)
+
+# Create the directory for JSON cache if it doesn't exist
+cache_dir = os.path.join('outputs_json', subfolder_name)
+if not os.path.exists(cache_dir):
+    os.makedirs(cache_dir)
+
 for idx, pkt in enumerate(packet_array):
+    packet_file = os.path.join(cache_dir, f'packet{idx + 1}.json')
+
     time_packet_start = datetime.datetime.now()
     if isinstance(pkt, dict):
         packet_msg_type = list(pkt.keys())[0]
         asn_dictionary = asn_dictionaries.get(packet_msg_type)
         pkt_analysed, summary = analyse_packet(pkt, asn_dictionary, summary)
-        pkts_analysed.append(pkt_analysed)
-
         time_packet_end = datetime.datetime.now()
         print(
-            f'{packet_msg_type} packet {idx+1}/{len(packet_array)} analysed in {(time_packet_end - time_packet_start).total_seconds()} seconds.')
+            f'{packet_msg_type} packet {idx + 1}/{len(packet_array)} analysed in {(time_packet_end - time_packet_start).total_seconds()} seconds.')
     else:
-        pkts_analysed.append(pkt)
+        pkt_analysed = pkt
         time_packet_end = datetime.datetime.now()
         print(
-            f'Packet {idx+1}/{len(packet_array)} was not analysed ({(time_packet_end - time_packet_start).total_seconds()} s). The reason was: {pkt}')
-    i += 1
+            f'Packet {idx + 1}/{len(packet_array)} was not analysed ({(time_packet_end - time_packet_start).total_seconds()} s). The reason was: {pkt}')
+    pkts_analysed.append(pkt_analysed)
+    with open(packet_file, 'w') as f:
+        json.dump(pkt_analysed, f, indent=4)
 
 time_analysis_end = datetime.datetime.now()
 print('-----------------------------------\n'

@@ -1,4 +1,5 @@
 import pyshark
+import os
 import json
 from msg import ItsMessage
 
@@ -35,26 +36,61 @@ class Packets(object):
 
         It recognizes if a packet is malformed or is not an ITS packet and adds this information into the list.
         """
-        packet_array = []
-        msg_types = self.get_its_msg_dict()
-        for idx, pkt in enumerate(self.pcap):
+
+        def import_packet():
             if 'ITS' in str(pkt.layers):
                 if 'MALFORMED' in str(pkt.layers):
-                    packet_array.append(f'Packet no. {idx + 1}: malformed packet')
+                    return f'Packet no. {idx + 1}: malformed packet'
                 else:
                     try:
                         msg_object = msg_types.get(pkt.btpb.dstport)
                     except KeyError:
-                        packet_array.append(
-                            f'Packet no. {idx + 1}: unsupported C-ITS message type with dstport {pkt.btpb.dstport}.')
+                        return f'Packet no. {idx + 1}: unsupported C-ITS message type with dstport {pkt.btpb.dstport}.'
                     else:
                         pkt_decoded = msg_object.decode(bytes.fromhex(pkt.its_raw.value))
                         if isinstance(pkt_decoded, dict):
-                            packet_array.append(pkt_decoded)
+                            return pkt_decoded
                         else:
-                            packet_array.append(f'Packet no. {idx + 1}: {pkt_decoded}')
+                            return 'Packet no. {idx + 1}: {pkt_decoded}'
             else:
-                packet_array.append(f'Packet no. {idx+1}: Not a C-ITS packet.')
+                return f'Packet no. {idx+1}: Not a C-ITS packet.'
+
+        # Initialise the packet array
+        packet_array = []
+
+        # Load message types from config
+        msg_types = self.get_its_msg_dict()
+
+        # Get the name of the input file without the path and extension
+        subfolder_name = os.path.basename(self.input_file)
+
+        # Create the directory for JSON cache if it doesn't exist
+        cache_dir = os.path.join('inputs_json', subfolder_name)
+        if not os.path.exists(cache_dir):
+            os.makedirs(cache_dir)
+
+        for idx, pkt in enumerate(self.pcap):
+            packet_file = os.path.join(cache_dir, f'packet{idx + 1}.json')
+
+            # If packet is in cache dir, load it from there instead of importing it again
+            if os.path.exists(packet_file):
+                with open(packet_file, 'r') as f:
+                    json_pkt = json.load(f)
+                packet_array.append(json_pkt)
+
+            # If packet is not in cache dir, import and save it
+            else:
+                pkt_decoded = import_packet()
+
+                try:
+                    pkt_dict = process_packet(pkt_decoded)
+                except AttributeError:
+                    pkt_dict = pkt_decoded
+                finally:
+                    with open(packet_file, 'w') as f:
+                        json.dump(pkt_dict, f)
+                    packet_array.append(pkt_decoded)
+
         return packet_array
 
 
@@ -94,6 +130,9 @@ def process_packet(input_dict):
         # If value is dict, go one level deeper
         elif isinstance(value, dict):
             output_dict[key] = process_packet(value)
+
+        elif isinstance(value, bytes):
+            output_dict[key] = str(value)
 
         else:
             output_dict[key] = value

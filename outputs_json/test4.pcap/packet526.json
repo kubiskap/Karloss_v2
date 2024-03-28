@@ -1,0 +1,178 @@
+{
+    "SREM": [
+        {
+            "header": [
+                {
+                    "protocolVersion": [
+                        2,
+                        "OK",
+                        null
+                    ],
+                    "messageID": [
+                        [
+                            9,
+                            "srem"
+                        ],
+                        "OK",
+                        null
+                    ],
+                    "stationID": [
+                        2228942367,
+                        "OK",
+                        null
+                    ]
+                },
+                "OK",
+                null
+            ],
+            "srm": [
+                {
+                    "timeStamp": [
+                        233827,
+                        "OK",
+                        null
+                    ],
+                    "second": [
+                        58860,
+                        "OK",
+                        null
+                    ],
+                    "sequenceNumber": [
+                        83,
+                        "OK",
+                        null
+                    ],
+                    "requests": [
+                        {
+                            "listItem0": [
+                                {
+                                    "request": [
+                                        {
+                                            "id": [
+                                                {
+                                                    "id": [
+                                                        204,
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "Warning",
+                                                [
+                                                    "Optional parameter region missing."
+                                                ]
+                                            ],
+                                            "requestID": [
+                                                4,
+                                                "OK",
+                                                null
+                                            ],
+                                            "requestType": [
+                                                "priorityRequest",
+                                                "OK",
+                                                null
+                                            ],
+                                            "inBoundLane": [
+                                                {
+                                                    "approach": [
+                                                        2,
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ],
+                                            "outBoundLane": [
+                                                {
+                                                    "approach": [
+                                                        4,
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "Warning",
+                                        [
+                                            "Optional parameter regional missing."
+                                        ]
+                                    ]
+                                },
+                                "Warning",
+                                [
+                                    "Optional parameter minute missing.",
+                                    "Optional parameter second missing.",
+                                    "Optional parameter duration missing.",
+                                    "Optional parameter regional missing."
+                                ]
+                            ]
+                        },
+                        "OK",
+                        null
+                    ],
+                    "requestor": [
+                        {
+                            "id": [
+                                {
+                                    "stationID": [
+                                        2228942367,
+                                        "OK",
+                                        null
+                                    ]
+                                },
+                                "OK",
+                                null
+                            ],
+                            "type": [
+                                {
+                                    "role": [
+                                        "publicTransport",
+                                        "OK",
+                                        null
+                                    ],
+                                    "subrole": [
+                                        "requestSubRole1",
+                                        "OK",
+                                        null
+                                    ]
+                                },
+                                "Warning",
+                                [
+                                    "Optional parameter request missing.",
+                                    "Optional parameter iso3883 missing.",
+                                    "Optional parameter hpmsType missing.",
+                                    "Optional parameter regional missing."
+                                ]
+                            ],
+                            "name": [
+                                "2367",
+                                "OK",
+                                null
+                            ],
+                            "routeName": [
+                                "61;12;420",
+                                "OK",
+                                null
+                            ],
+                            "transitSchedule": [
+                                23,
+                                "OK",
+                                null
+                            ]
+                        },
+                        "OK",
+                        null
+                    ]
+                },
+                "Warning",
+                [
+                    "Optional parameter regional missing."
+                ]
+            ]
+        },
+        "OK",
+        null
+    ]
+}

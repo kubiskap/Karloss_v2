@@ -1,0 +1,326 @@
+{
+    "SPATEM": [
+        {
+            "header": [
+                {
+                    "protocolVersion": [
+                        2,
+                        "OK",
+                        null
+                    ],
+                    "messageID": [
+                        [
+                            4,
+                            "spatem"
+                        ],
+                        "OK",
+                        null
+                    ],
+                    "stationID": [
+                        2228980240,
+                        "OK",
+                        null
+                    ]
+                },
+                "OK",
+                null
+            ],
+            "spat": [
+                {
+                    "intersections": [
+                        {
+                            "listItem0": [
+                                {
+                                    "name": [
+                                        "Videnska-Business_Park",
+                                        "OK",
+                                        null
+                                    ],
+                                    "id": [
+                                        {
+                                            "region": [
+                                                25369,
+                                                "OK",
+                                                null
+                                            ],
+                                            "id": [
+                                                240,
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "OK",
+                                        null
+                                    ],
+                                    "revision": [
+                                        24,
+                                        "OK",
+                                        null
+                                    ],
+                                    "status": [
+                                        [
+                                            "0000001000000000",
+                                            [
+                                                "trafficDependentOperation"
+                                            ]
+                                        ],
+                                        "OK",
+                                        null
+                                    ],
+                                    "moy": [
+                                        233827,
+                                        "OK",
+                                        null
+                                    ],
+                                    "timeStamp": [
+                                        15334,
+                                        "OK",
+                                        null
+                                    ],
+                                    "states": [
+                                        {
+                                            "listItem0": [
+                                                {
+                                                    "movementName": [
+                                                        "VA",
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "signalGroup": [
+                                                        1,
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "state-time-speed": [
+                                                        {
+                                                            "listItem0": [
+                                                                {
+                                                                    "eventState": [
+                                                                        "permissive-Movement-Allowed",
+                                                                        "OK",
+                                                                        null
+                                                                    ],
+                                                                    "timing": [
+                                                                        {
+                                                                            "startTime": [
+                                                                                4211,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "minEndTime": [
+                                                                                4353,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "maxEndTime": [
+                                                                                6903,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "likelyTime": [
+                                                                                4363,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "confidence": [
+                                                                                0,
+                                                                                "OK",
+                                                                                null
+                                                                            ]
+                                                                        },
+                                                                        "Warning",
+                                                                        [
+                                                                            "Optional parameter nextTime missing."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "Warning",
+                                                                [
+                                                                    "Optional parameter speeds missing.",
+                                                                    "Optional parameter regional missing."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "Warning",
+                                                [
+                                                    "Optional parameter maneuverAssistList missing.",
+                                                    "Optional parameter regional missing."
+                                                ]
+                                            ],
+                                            "listItem1": [
+                                                {
+                                                    "movementName": [
+                                                        "VB",
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "signalGroup": [
+                                                        2,
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "state-time-speed": [
+                                                        {
+                                                            "listItem0": [
+                                                                {
+                                                                    "eventState": [
+                                                                        "stop-And-Remain",
+                                                                        "OK",
+                                                                        null
+                                                                    ],
+                                                                    "timing": [
+                                                                        {
+                                                                            "startTime": [
+                                                                                4201,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "minEndTime": [
+                                                                                4423,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "maxEndTime": [
+                                                                                6903,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "likelyTime": [
+                                                                                4363,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "confidence": [
+                                                                                0,
+                                                                                "OK",
+                                                                                null
+                                                                            ]
+                                                                        },
+                                                                        "Warning",
+                                                                        [
+                                                                            "Optional parameter nextTime missing."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "Warning",
+                                                                [
+                                                                    "Optional parameter speeds missing.",
+                                                                    "Optional parameter regional missing."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "Warning",
+                                                [
+                                                    "Optional parameter maneuverAssistList missing.",
+                                                    "Optional parameter regional missing."
+                                                ]
+                                            ],
+                                            "listItem2": [
+                                                {
+                                                    "movementName": [
+                                                        "VC",
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "signalGroup": [
+                                                        3,
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "state-time-speed": [
+                                                        {
+                                                            "listItem0": [
+                                                                {
+                                                                    "eventState": [
+                                                                        "permissive-Movement-Allowed",
+                                                                        "OK",
+                                                                        null
+                                                                    ],
+                                                                    "timing": [
+                                                                        {
+                                                                            "startTime": [
+                                                                                4241,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "minEndTime": [
+                                                                                4353,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "maxEndTime": [
+                                                                                6903,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "likelyTime": [
+                                                                                4363,
+                                                                                "OK",
+                                                                                null
+                                                                            ],
+                                                                            "confidence": [
+                                                                                0,
+                                                                                "OK",
+                                                                                null
+                                                                            ]
+                                                                        },
+                                                                        "Warning",
+                                                                        [
+                                                                            "Optional parameter nextTime missing."
+                                                                        ]
+                                                                    ]
+                                                                },
+                                                                "Warning",
+                                                                [
+                                                                    "Optional parameter speeds missing.",
+                                                                    "Optional parameter regional missing."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "Warning",
+                                                [
+                                                    "Optional parameter maneuverAssistList missing.",
+                                                    "Optional parameter regional missing."
+                                                ]
+                                            ]
+                                        },
+                                        "OK",
+                                        null
+                                    ]
+                                },
+                                "Warning",
+                                [
+                                    "Optional parameter enabledLanes missing.",
+                                    "Optional parameter maneuverAssistList missing.",
+                                    "Optional parameter regional missing."
+                                ]
+                            ]
+                        },
+                        "OK",
+                        null
+                    ]
+                },
+                "Warning",
+                [
+                    "Optional parameter timeStamp missing.",
+                    "Optional parameter name missing.",
+                    "Optional parameter regional missing."
+                ]
+            ]
+        },
+        "OK",
+        null
+    ]
+}

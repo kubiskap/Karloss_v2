@@ -1,5 +1,5 @@
 from pktImport import recursive_parameters
-from pktImport import process_packet
+import copy
 import jsonpath_ng
 
 
@@ -58,7 +58,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
 
         Also converts path of the asn specification, which corresponds to asn_dictionary structure.
         """
-        path_converted = input_path.copy()
+
         path_converted = input_path.copy()
         if any('listItem' in path_keys for path_keys in path_converted):
             asn_path = []
@@ -72,7 +72,7 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
             asn_path = path_converted.copy()
         return path_converted, asn_path
 
-    packet_analysed = process_packet(packet)
+    packet_analysed = copy.deepcopy(packet)
     for path, key, value in recursive_parameters(packet_analysed):
         problems = []  # If a problem is detected with parameter, the details are added in this list.
         path_converted, asn_path = convert_item_path(path)
@@ -202,15 +202,16 @@ def analyse_packet(packet: dict, asn_dictionary: dict, summary_dict=None) -> tup
             problem_flags.append(problem.flag)
             problem_descs.append(problem.desc)
         if 1 in problem_flags:
-            state = 'Error'
+            parameter_state = 'Error'
         elif 0 in problem_flags:
-            state = 'Warning'
+            parameter_state = 'Warning'
         else:
-            state = 'OK'
+            parameter_state = 'OK'
 
-        summary_add_value(summary_dict, '.'.join(list(path_converted)), state)
+        summary_add_value(summary_dict, '.'.join(list(path_converted)), parameter_state)
+
         # Construct the value to be assigned
-        value_to_set = [value, state, None if not problem_flags else problem_descs]
+        value_to_set = [value, parameter_state, None if not problem_flags else problem_descs]
 
         matches = jsonpath_ng.parse("$." + ".".join(path)).find(packet_analysed)
         # Set the value directly using JSONPath

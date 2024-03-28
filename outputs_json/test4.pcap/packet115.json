@@ -1,0 +1,181 @@
+{
+    "SSEM": [
+        {
+            "header": [
+                {
+                    "protocolVersion": [
+                        2,
+                        "OK",
+                        null
+                    ],
+                    "messageID": [
+                        [
+                            10,
+                            "ssem"
+                        ],
+                        "OK",
+                        null
+                    ],
+                    "stationID": [
+                        1188300,
+                        "OK",
+                        null
+                    ]
+                },
+                "OK",
+                null
+            ],
+            "ssm": [
+                {
+                    "timeStamp": [
+                        233827,
+                        "OK",
+                        null
+                    ],
+                    "second": [
+                        6598,
+                        "OK",
+                        null
+                    ],
+                    "sequenceNumber": [
+                        98,
+                        "OK",
+                        null
+                    ],
+                    "status": [
+                        {
+                            "listItem0": [
+                                {
+                                    "sequenceNumber": [
+                                        0,
+                                        "OK",
+                                        null
+                                    ],
+                                    "id": [
+                                        {
+                                            "id": [
+                                                204,
+                                                "OK",
+                                                null
+                                            ]
+                                        },
+                                        "Warning",
+                                        [
+                                            "Optional parameter region missing."
+                                        ]
+                                    ],
+                                    "sigStatus": [
+                                        {
+                                            "listItem0": [
+                                                {
+                                                    "requester": [
+                                                        {
+                                                            "id": [
+                                                                {
+                                                                    "stationID": [
+                                                                        2228941943,
+                                                                        "OK",
+                                                                        null
+                                                                    ]
+                                                                },
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "request": [
+                                                                1,
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "sequenceNumber": [
+                                                                80,
+                                                                "OK",
+                                                                null
+                                                            ],
+                                                            "typeData": [
+                                                                {
+                                                                    "role": [
+                                                                        "publicTransport",
+                                                                        "OK",
+                                                                        null
+                                                                    ],
+                                                                    "subrole": [
+                                                                        "requestSubRole2",
+                                                                        "OK",
+                                                                        null
+                                                                    ]
+                                                                },
+                                                                "Warning",
+                                                                [
+                                                                    "Optional parameter request missing.",
+                                                                    "Optional parameter iso3883 missing.",
+                                                                    "Optional parameter hpmsType missing.",
+                                                                    "Optional parameter regional missing."
+                                                                ]
+                                                            ]
+                                                        },
+                                                        "Warning",
+                                                        [
+                                                            "Optional parameter role missing."
+                                                        ]
+                                                    ],
+                                                    "inboundOn": [
+                                                        {
+                                                            "approach": [
+                                                                14,
+                                                                "OK",
+                                                                null
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "outboundOn": [
+                                                        {
+                                                            "approach": [
+                                                                15,
+                                                                "OK",
+                                                                null
+                                                            ]
+                                                        },
+                                                        "OK",
+                                                        null
+                                                    ],
+                                                    "status": [
+                                                        "processing",
+                                                        "OK",
+                                                        null
+                                                    ]
+                                                },
+                                                "Warning",
+                                                [
+                                                    "Optional parameter minute missing.",
+                                                    "Optional parameter second missing.",
+                                                    "Optional parameter duration missing.",
+                                                    "Optional parameter regional missing."
+                                                ]
+                                            ]
+                                        },
+                                        "OK",
+                                        null
+                                    ]
+                                },
+                                "Warning",
+                                [
+                                    "Optional parameter regional missing."
+                                ]
+                            ]
+                        },
+                        "OK",
+                        null
+                    ]
+                },
+                "Warning",
+                [
+                    "Optional parameter regional missing."
+                ]
+            ]
+        },
+        "OK",
+        null
+    ]
+}
